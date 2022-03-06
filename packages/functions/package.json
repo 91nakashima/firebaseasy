@@ -1,0 +1,29 @@
+{
+  "name": "@firebaseasy/functions",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "./lib/src/index.js",
+  "types": "./src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.1",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "description": "```bash npm install easy-firebase-functions ```",
+  "scripts": {
+    "test": "test fire",
+    "build": "npx tsc",
+    "deploy": "npx tsc && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com.inc:91nakashima/easy-firebase-functions"
+  },
+  "homepage": "https://github.com/91nakashima/easy-firebase-functions",
+  "keywords": ["firebase", "cloud functions"],
+  "author": "91nakashima",
+  "publishConfig": {
+    "access": "public"
+  }
+}

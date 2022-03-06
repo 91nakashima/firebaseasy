@@ -10,10 +10,23 @@ npm i @firebaseasy/firestore
 # 使い方
 
 ```js
-import { easySetDoc, easyGetData, easyDelDoc } from '@firebaseasy/firestore'
+import { easySetDoc } from '@firebaseasy/firestore'
+import { easyGetData, easyGetDoc, easyGetDocs } from '@firebaseasy/firestore'
+import { easyDelDoc } from '@firebaseasy/firestore'
 
 // Type
 import { EasySetDoc, QueryOption, WhereOption } from '@firebaseasy/firestore'
+```
+
+# 設定
+
+```js
+import { initializeApp } from 'firebase/app'
+const firebaseApp = initializeApp({
+  apiKey: '### FIREBASE API KEY ###',
+  authDomain: '### FIREBASE AUTH DOMAIN ###',
+  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+})
 ```
 
 # 機能
@@ -83,6 +96,15 @@ easyGetData('anime', {
 // get document data as an Object
 /** @return {Objrct | undefined} */
 easyGetData('anime/abcdefghijklmnopqrstuvwxyz')
+
+/** @return {Promise<T[] | T | undefined | Error>} */
+easyGetData('anime/abcdefghijklmnopqrstuvwxyz')
+
+/** @return {Promise<T | undefined | Error></T>} */
+easyGetDoc('anime/abcdefg')
+
+/** @return {Promise<T[] | Error>} */
+easyGetDocs('anime')
 ```
 
 情報の削除
