@@ -6,9 +6,9 @@ import { CollectionReference, DocumentReference } from 'firebase/firestore'
  * delete Doc
  * @params 'cities/LA'
  */
-export async function easyDelDoc (path: string): Promise<string | Error> {
+export async function easyDelDoc (path: string): Promise<string> {
   const collectionArray = path.split('/').filter(d => d)
-  if (!collectionArray.length) return new Error()
+  if (!collectionArray.length) throw new Error()
 
   let reference: CollectionReference | DocumentReference | null = null
   const db = getFirestore()

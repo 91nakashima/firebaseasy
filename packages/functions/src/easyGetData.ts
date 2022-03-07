@@ -7,6 +7,8 @@ import {
 
 import { QueryOption, WhereOption } from '../types/easyGetData'
 
+type GetDataType<T> = T extends any[] ? T : T | undefined
+
 /**
  * check type
  */
@@ -22,9 +24,9 @@ const isUseType = (r: any): r is CollectionReference | Query => {
 export async function easyGetData<T> (
   data: string,
   option: QueryOption = {}
-): Promise<T[] | T | undefined | Error> {
+): Promise<GetDataType<T>> {
   const collectionArray = data.split('/').filter(d => d)
-  if (!collectionArray.length) return new Error()
+  if (!collectionArray.length) throw new Error()
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
@@ -47,8 +49,8 @@ export async function easyGetData<T> (
       reference
         .get()
         .then(doc => {
-          if (!doc.exists) return resolve(undefined)
-          resolve(doc.data() as T)
+          if (!doc.exists) return resolve(undefined as GetDataType<T>)
+          resolve(doc.data() as GetDataType<T>)
         })
         .catch(() => rejects())
     })
@@ -83,11 +85,11 @@ export async function easyGetData<T> (
    * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
    */
   if (option.limit) {
-    if (!isUseType(reference)) return new Error()
+    if (!isUseType(reference)) throw new Error()
     reference = reference.limit(option.limit)
   }
 
-  if (!isUseType(reference)) return new Error()
+  if (!isUseType(reference)) throw new Error()
   const res = await reference.get()
 
   /**
@@ -99,7 +101,7 @@ export async function easyGetData<T> (
     arr.push(el.data() as T)
   })
 
-  return arr as Array<T>
+  return arr as GetDataType<T>
 }
 
 /**
@@ -108,9 +110,9 @@ export async function easyGetData<T> (
 export async function easyGetDoc<T> (
   data: string,
   option: QueryOption = {}
-): Promise<T | undefined | Error> {
+): Promise<T | undefined> {
   const collectionArray = data.split('/').filter(d => d)
-  if (!collectionArray.length) return new Error()
+  if (!collectionArray.length) throw new Error()
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
@@ -127,7 +129,7 @@ export async function easyGetDoc<T> (
   /**
    * DocumentReferenceの場合
    */
-  if (!(reference instanceof DocumentReference)) return new Error()
+  if (!(reference instanceof DocumentReference)) throw new Error()
 
   return new Promise((resolve, rejects) => {
     if (!(reference instanceof DocumentReference)) return rejects()
@@ -147,9 +149,9 @@ export async function easyGetDoc<T> (
 export async function easyGetDocs<T> (
   data: string,
   option: QueryOption = {}
-): Promise<T[] | Error> {
+): Promise<T[]> {
   const collectionArray = data.split('/').filter(d => d)
-  if (!collectionArray.length) return new Error()
+  if (!collectionArray.length) throw new Error()
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
@@ -166,7 +168,7 @@ export async function easyGetDocs<T> (
   /**
    * CollectionReference以外はエラー
    */
-  if (!(reference instanceof CollectionReference)) return new Error()
+  if (!(reference instanceof CollectionReference)) throw new Error()
 
   /**
    * document
@@ -197,21 +199,21 @@ export async function easyGetDocs<T> (
    * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
    */
   if (option.limit) {
-    if (!isUseType(reference)) return new Error()
+    if (!isUseType(reference)) throw new Error()
     reference = reference.limit(option.limit)
   }
 
-  if (!isUseType(reference)) return new Error()
+  if (!isUseType(reference)) throw new Error()
   const res = await reference.get()
 
   /**
    * document data in Array
    */
-  const arr: Array<T> = []
+  const arr: T[] = []
   res.forEach(el => {
     if (!el.exists) return
     arr.push(el.data() as T)
   })
 
-  return arr as Array<T>
+  return arr as T[]
 }

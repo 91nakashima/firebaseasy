@@ -1,5 +1,5 @@
 // modules
 export { easySetDoc } from './easySetDoc';
-export { easyGetData } from './easyGetData';
+export { easyGetData, easyGetDoc, easyGetDocs } from './easyGetData';
 export { easyDelDoc } from './easyDelDoc';
 //# sourceMappingURL=index.js.map

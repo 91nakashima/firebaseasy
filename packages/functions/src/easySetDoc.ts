@@ -12,9 +12,9 @@ import { EasySetDoc } from '../types/EasySetDoc'
 export async function easySetDoc<T> (
   path: string,
   data: EasySetDoc & T
-): Promise<string | Error> {
+): Promise<string> {
   const collectionArray = path.split('/').filter(d => d)
-  if (!collectionArray.length) return new Error()
+  if (!collectionArray.length) throw new Error()
 
   let reference: CollectionReference | DocumentReference | null = null
   for (let i = 0; i < collectionArray.length; i++) {
@@ -27,7 +27,7 @@ export async function easySetDoc<T> (
     }
   }
 
-  if (!(reference instanceof CollectionReference)) return new Error()
+  if (!(reference instanceof CollectionReference)) throw new Error()
 
   // idがある場合
   if (data.id) {

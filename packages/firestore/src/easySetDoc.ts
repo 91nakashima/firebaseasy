@@ -23,9 +23,9 @@ const createPath = (path: string, id: string) => {
 export async function easySetDoc<T> (
   collectionPath: string,
   data: EasySetDoc & T
-): Promise<string | Error> {
+): Promise<string> {
   const collectionArray = collectionPath.split('/').filter(d => d)
-  if (!collectionArray.length) return new Error()
+  if (!collectionArray.length) throw new Error()
 
   let reference: CollectionReference | DocumentReference | null = null
 
@@ -43,7 +43,7 @@ export async function easySetDoc<T> (
   } else if (dataNum % 2 === 0) {
     // document
     if (data.id && collectionArray[dataNum - 1] !== data.id) {
-      return new Error()
+      throw new Error()
     }
 
     if (!data.id) {
@@ -55,7 +55,7 @@ export async function easySetDoc<T> (
 
   // idがある場合
   if (data.id) {
-    if (!(reference instanceof DocumentReference)) return new Error()
+    if (!(reference instanceof DocumentReference)) throw new Error()
 
     const getData = await getDoc(reference)
 
@@ -78,7 +78,7 @@ export async function easySetDoc<T> (
   }
 
   // idがない場合(create)
-  if (!(reference instanceof CollectionReference)) return new Error()
+  if (!(reference instanceof CollectionReference)) throw new Error()
 
   data.created_at = new Date()
 

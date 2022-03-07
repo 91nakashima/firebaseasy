@@ -12,7 +12,7 @@ export function easyDelDoc(path) {
         return __generator(this, function (_a) {
             collectionArray = path.split('/').filter(function (d) { return d; });
             if (!collectionArray.length)
-                return [2 /*return*/, new Error()];
+                throw new Error();
             reference = null;
             db = getFirestore();
             dataNum = collectionArray.length;

@@ -4,7 +4,7 @@ Nakashima Package Manager
 略して【npm】で入れます。
 
 ```bash
-npm install easy-firebase-functions
+npm i @firebaseasy/functions
 ```
 
 # 使い方
@@ -12,11 +12,8 @@ npm install easy-firebase-functions
 ```js
 // js
 const { easySetDoc } = require('easy-firebase-functions')
-const {
-  easyGetData,
-  easyGetDoc,
-  easyGetDocs
-} = require('easy-firebase-functions')
+const { easyGetData } = require('easy-firebase-functions')
+const { easyGetDoc, easyGetDocs } = require('easy-firebase-functions')
 const { easyDelDoc } = require('easy-firebase-functions')
 
 // ts
@@ -69,7 +66,7 @@ easyGetData('anime', {
 })
 
 // get document data as an Object
-/** @return {Objrct | undefined} */
+/** @return {Objects | undefined} */
 easyGetData('anime/hugahuga')
 ```
 
@@ -115,36 +112,4 @@ export const funSampleCode = functions
       .then((d: string) => console.log(d)) // -> 'ok'
       .catch((e: any) => console.log(e)) // -> Error
   })
-```
-
-# if you cannot use
-
-try update
-
-```bash
-npm i firebase-admin@latest
-```
-
-```bash
-npm i firebase-functions@latest
-```
-
-checked↓(not recommended & easyDelete() cannot be used)
-
-```json
-"dependencies": {
-    "easy-firebase-functions": "^1.1.6",
-    "firebase-admin": "^9.2.0",
-    "firebase-functions": "^3.16.0",
-  },
-```
-
-checked↓
-
-```json
-"dependencies": {
-    "easy-firebase-functions": "^1.4.2",
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.18.1",
-  },
 ```

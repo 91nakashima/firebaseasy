@@ -26,7 +26,7 @@ export function easySetDoc(collectionPath, data) {
                 case 0:
                     collectionArray = collectionPath.split('/').filter(function (d) { return d; });
                     if (!collectionArray.length)
-                        return [2 /*return*/, new Error()];
+                        throw new Error();
                     reference = null;
                     db = getFirestore();
                     dataNum = collectionArray.length;
@@ -41,7 +41,7 @@ export function easySetDoc(collectionPath, data) {
                     else if (dataNum % 2 === 0) {
                         // document
                         if (data.id && collectionArray[dataNum - 1] !== data.id) {
-                            return [2 /*return*/, new Error()];
+                            throw new Error();
                         }
                         if (!data.id) {
                             data.id = collectionArray[dataNum - 1];
@@ -50,7 +50,7 @@ export function easySetDoc(collectionPath, data) {
                     }
                     if (!data.id) return [3 /*break*/, 6];
                     if (!(reference instanceof DocumentReference))
-                        return [2 /*return*/, new Error()];
+                        throw new Error();
                     return [4 /*yield*/, getDoc(reference)];
                 case 1:
                     getData = _a.sent();
@@ -78,7 +78,7 @@ export function easySetDoc(collectionPath, data) {
                 case 6:
                     // idがない場合(create)
                     if (!(reference instanceof CollectionReference))
-                        return [2 /*return*/, new Error()];
+                        throw new Error();
                     data.created_at = new Date();
                     return [4 /*yield*/, addDoc(reference, data)];
                 case 7:
