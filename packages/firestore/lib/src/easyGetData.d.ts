@@ -7,7 +7,7 @@ export declare function easyGetData<T>(path: string, option?: QueryOption): Prom
 /**
  * get Doc Data
  */
-export declare function easyGetDoc<T>(path: string, option?: QueryOption): Promise<T | undefined>;
+export declare function easyGetDoc<T>(path: string): Promise<T | undefined>;
 /**
  * get Collection Data
  */

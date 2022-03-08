@@ -1,6 +1,6 @@
 {
   "name": "@firebaseasy/firestore",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "Easy to use firestore",
   "main": "./lib/src/index.js",
   "scripts": {
@@ -17,7 +17,9 @@
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^9.6.8"
+    "firebase": "^9.6.8",
+    "vue": "^3.2.31",
+    "vuex": "^4.0.2"
   },
   "publishConfig": {
     "access": "public"

@@ -14,6 +14,10 @@ import { easySetDoc } from '@firebaseasy/firestore'
 import { easyGetData, easyGetDoc, easyGetDocs } from '@firebaseasy/firestore'
 import { easyDelDoc } from '@firebaseasy/firestore'
 
+import { initEasyFirestore } from '@firebaseasy/firestore'
+import { easyConnect, easyUnConnect } from '@firebaseasy/firestore'
+import { createRef } from '@firebaseasy/firestore'
+
 // Type
 import { EasySetDoc, QueryOption, WhereOption } from '@firebaseasy/firestore'
 ```
@@ -27,6 +31,9 @@ const firebaseApp = initializeApp({
   authDomain: '### FIREBASE AUTH DOMAIN ###',
   projectId: '### CLOUD FIRESTORE PROJECT ID ###'
 })
+
+// if you use vue3
+initEasyFirestore(true)
 ```
 
 # 機能
@@ -112,4 +119,17 @@ easyGetDocs('anime')
 ```js
 // delete document
 easyDelDoc('anime/abcdefghijklmnopqrstuvwxyz')
+```
+
+接続
+
+```js
+import { isTypeCollectionOrQuery } from '@firebaseasy/firestore'
+const ref = createRef('D_ShowUser') as CollectionReference
+// const ref = createRef('D_ShowUser')
+// if (!(isTypeCollectionOrQuery(ref))) throw new Error()
+easyConnect(ref, 'D_ShowUser', (data) => {
+  console.log(data)
+  // please use vuex
+})
 ```

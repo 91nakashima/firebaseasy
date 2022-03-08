@@ -1,29 +1,16 @@
 import { __awaiter, __generator } from "tslib";
-import { getFirestore } from 'firebase/firestore';
-import { doc, deleteDoc, collection } from 'firebase/firestore';
+import { deleteDoc } from 'firebase/firestore';
 import { DocumentReference } from 'firebase/firestore';
+import { createRef } from './createReference';
 /**
  * delete Doc
  * @params 'cities/LA'
  */
 export function easyDelDoc(path) {
     return __awaiter(this, void 0, void 0, function () {
-        var collectionArray, reference, db, dataNum;
+        var reference;
         return __generator(this, function (_a) {
-            collectionArray = path.split('/').filter(function (d) { return d; });
-            if (!collectionArray.length)
-                throw new Error();
-            reference = null;
-            db = getFirestore();
-            dataNum = collectionArray.length;
-            if (dataNum === 1 || dataNum % 2 === 1) {
-                // collection
-                reference = collection(db, path);
-            }
-            else if (dataNum % 2 === 0) {
-                // document
-                reference = doc(db, path);
-            }
+            reference = createRef(path);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     /**
                      * ドキュメントを削除

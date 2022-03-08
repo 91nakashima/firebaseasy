@@ -1,0 +1,7 @@
+{
+  "vetur.validation.template": false,
+  "vetur.format.enable": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vetur.experimental.templateInterpolationService": false,
+  "vetur.validation.script": false
+}

@@ -7,6 +7,9 @@ import { CollectionReference, DocumentReference } from 'firebase/firestore'
 import { Query } from 'firebase/firestore'
 import { QueryOption, WhereOption } from '../types/easyGetData'
 
+import { createRef } from './createReference'
+import { isTypeCollectionOrQuery } from './helpers/checkType'
+
 // type FirebaseGetDataType<T, U> = U extends ''
 // 	? never
 // 	: U extends `${infer Collection}/${infer Document}/${infer Rest}/${infer RestDoc}`
@@ -22,35 +25,13 @@ import { QueryOption, WhereOption } from '../types/easyGetData'
 type GetDataType<T> = T extends any[] ? T : T | undefined
 
 /**
- * check type
- */
-const isUseType = (r: any): r is CollectionReference | Query => {
-  if (r instanceof CollectionReference) return true
-  if (r instanceof Query) return true
-  return false
-}
-
-/**
  * get Doc or collection Data
  */
 export async function easyGetData<T> (
   path: string,
-  option: QueryOption = {}
+  option?: QueryOption
 ): Promise<GetDataType<T>> {
-  const collectionArray = path.split('/').filter(d => d)
-  if (!collectionArray.length) throw new Error()
-
-  let reference: Query | CollectionReference | DocumentReference | null = null
-  const db = getFirestore()
-  const dataNum = collectionArray.length
-
-  if (dataNum === 1 || dataNum % 2 === 1) {
-    // collection
-    reference = collection(db, path)
-  } else if (dataNum % 2 === 0) {
-    // document
-    reference = doc(db, path)
-  }
+  const reference = createRef(path, option)
 
   /**
    * DocumentReferenceの場合
@@ -68,43 +49,8 @@ export async function easyGetData<T> (
     })
   }
 
-  /**
-   * document
-   * https://firebase.google.com/docs/firestore/query-data/queries?hl=ja#simple_queries
-   */
-  if (option.where) {
-    option.where.map((w: WhereOption) => {
-      if (!isUseType(reference)) return w
-      reference = query(reference, where(w[0], w[1], w[2]))
-      return w
-    })
-  }
-
-  /**
-   * document
-   * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
-   */
-  if (option.orderBy) {
-    option.orderBy.map((w: string) => {
-      if (!isUseType(reference) || !w) return w
-      reference = query(reference, orderBy(w))
-      return w
-    })
-  }
-
-  /**
-   * document
-   * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
-   */
-  if (option.limit) {
-    if (!isUseType(reference)) throw new Error()
-    reference = query(reference, limit(option.limit))
-  }
-
-  if (!isUseType(reference)) throw new Error()
   const res = await getDocs(reference)
 
-  // todo
   /**
    * document data in Array
    */
@@ -120,24 +66,8 @@ export async function easyGetData<T> (
 /**
  * get Doc Data
  */
-export async function easyGetDoc<T> (
-  path: string,
-  option: QueryOption = {}
-): Promise<T | undefined> {
-  const collectionArray = path.split('/').filter(d => d)
-  if (!collectionArray.length) throw new Error()
-
-  let reference: Query | CollectionReference | DocumentReference | null = null
-  const db = getFirestore()
-  const dataNum = collectionArray.length
-
-  if (dataNum === 1 || dataNum % 2 === 1) {
-    // collection
-    reference = collection(db, path)
-  } else if (dataNum % 2 === 0) {
-    // document
-    reference = doc(db, path)
-  }
+export async function easyGetDoc<T> (path: string): Promise<T | undefined> {
+  const reference = createRef(path)
 
   /**
    * DocumentReference以外の場合はエラー
@@ -161,62 +91,11 @@ export async function easyGetDoc<T> (
  */
 export async function easyGetDocs<T> (
   path: string,
-  option: QueryOption = {}
+  option?: QueryOption
 ): Promise<T[]> {
-  const collectionArray = path.split('/').filter(d => d)
-  if (!collectionArray.length) throw new Error()
+  const reference = createRef(path, option)
 
-  let reference: Query | CollectionReference | DocumentReference | null = null
-  const db = getFirestore()
-  const dataNum = collectionArray.length
-
-  if (dataNum === 1 || dataNum % 2 === 1) {
-    // collection
-    reference = collection(db, path)
-  } else if (dataNum % 2 === 0) {
-    // document
-    reference = doc(db, path)
-  }
-
-  /**
-   * CollectionReference以外の場合はエラー
-   */
-  if (!(reference instanceof CollectionReference)) throw new Error()
-
-  /**
-   * document
-   * https://firebase.google.com/docs/firestore/query-data/queries?hl=ja#simple_queries
-   */
-  if (option.where) {
-    option.where.map((w: WhereOption) => {
-      if (!isUseType(reference)) return w
-      reference = query(reference, where(w[0], w[1], w[2]))
-      return w
-    })
-  }
-
-  /**
-   * document
-   * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
-   */
-  if (option.orderBy) {
-    option.orderBy.map((w: string) => {
-      if (!isUseType(reference) || !w) return w
-      reference = query(reference, orderBy(w))
-      return w
-    })
-  }
-
-  /**
-   * document
-   * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
-   */
-  if (option.limit) {
-    if (!isUseType(reference)) throw new Error()
-    reference = query(reference, limit(option.limit))
-  }
-
-  if (!isUseType(reference)) throw new Error()
+  if (!isTypeCollectionOrQuery(reference)) throw new Error()
   const res = await getDocs(reference)
 
   /**
