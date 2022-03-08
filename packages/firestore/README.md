@@ -80,7 +80,7 @@ easySetDoc('anime/abcde/animeDetail/fghijklmno', {
 /**
  * update or create(add)
  * pathとidが一致しなかった場合エラーを返します
- * @return {Error}
+ * Error!
  */
 easySetDoc('anime/abcdefghijklmnopqrstuvwxyz', {
   id: 'zyxwvutsrqponmlkjihgfedcba'
@@ -104,13 +104,13 @@ easyGetData('anime', {
 /** @return {Objrct | undefined} */
 easyGetData('anime/abcdefghijklmnopqrstuvwxyz')
 
-/** @return {Promise<T[] | T | undefined | Error>} */
+/** @return {Promise<T[] | T | undefined>} */
 easyGetData('anime/abcdefghijklmnopqrstuvwxyz')
 
-/** @return {Promise<T | undefined | Error></T>} */
+/** @return {Promise<T | undefined>} */
 easyGetDoc('anime/abcdefg')
 
-/** @return {Promise<T[] | Error>} */
+/** @return {Promise<T[]>} */
 easyGetDocs('anime')
 ```
 
