@@ -2,18 +2,10 @@ import { onSnapshot, Unsubscribe } from 'firebase/firestore'
 import { Query, CollectionReference, DocumentData } from 'firebase/firestore'
 import { reactive } from 'vue'
 
-import { createRef } from './createReference'
-import { isTypeCollectionOrQuery } from './helpers/checkType'
-import { ConnectOption } from './index'
-
 const state: any = {}
 
 const config = {
   reactive: false
-}
-
-const initEasyFirestore = (useReactive: boolean) => {
-  config.reactive = useReactive
 }
 
 /**
@@ -65,4 +57,4 @@ const easyUnConnect = (key: string) => {
   delete state[key]
 }
 
-export { initEasyFirestore, easyConnect, easyUnConnect }
+export { easyConnect, easyUnConnect }

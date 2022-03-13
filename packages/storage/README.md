@@ -10,10 +10,8 @@ npm i @firebaseasy/storage
 # 使い方
 
 ```js
-import { easySetDoc, easyGetData, easyDelete } from '@firebaseasy/storage'
-
-// Type
-import { EasySetDoc, QueryOption, WhereOption } from '@firebaseasy/storage'
+import { easyUpload, randomName } from '@firebaseasy/storage'
+import { easyDelObject } from '@firebaseasy/storage'
 ```
 
 # 設定
@@ -29,7 +27,42 @@ const firebaseConfig = {
   storageBucket: '<your-storage-bucket-url>'
 }
 const firebaseApp = initializeApp(firebaseConfig)
-const storage = getStorage(firebaseApp)
 ```
 
 # 機能
+
+```js
+import { easyUpload, randomName } from '@firebaseasy/storage'
+
+const createPath = randomName(10, getFile)
+// jdnajt93nd.jpg
+const getURL = await easyUpload(`test/${createPath}`, file)
+console.log(getURL)
+// https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa
+
+// progress
+const getURL = await easyUpload(
+  `test/${createPath}`,
+  file,
+  (progress, status) => {
+    console.log('Upload is ' + progress + '% done')
+    // Upload is 100 '% done
+    console.log(status)
+    // "running" | "paused" | "success" | "canceled" | "error"
+  }
+)
+```
+
+```js
+import { easyDelObject } from '@firebaseasy/storage'
+
+easyDelObject('https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa').then(
+  d => console.log(d)
+  // success
+)
+
+easyDelObject('image/jdnajt93nd.jpg').then(
+  d => console.log(d)
+  // success
+)
+```

@@ -1,2 +1,3 @@
 // modules
-export { easyUpload } from './easyUpload'
+export { easyUpload, randomName } from './easyUpload'
+export { easyDelObject } from './easyDelObject'
