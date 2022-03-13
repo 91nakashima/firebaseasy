@@ -10,11 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com.inc:91nakashima/firebaseasy"
+    "url": "https://github.com/91nakashima/firebaseasy/tree/main/packeges/storage"
   },
+  "homepage": "https://github.com/91nakashima/firebaseasy",
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
     "firebase": "^9.6.8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

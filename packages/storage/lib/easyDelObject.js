@@ -4,7 +4,7 @@ export function easyDelObject(path) {
     if (path.includes('https://')) {
         var urlArr = path.split('/');
         var getPath = urlArr[urlArr.length - 1].split('?')[0];
-        path = encodeURIComponent(getPath);
+        path = decodeURIComponent(getPath);
     }
     var storage = getStorage();
     var desertRef = ref(storage, path);
