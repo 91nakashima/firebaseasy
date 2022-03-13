@@ -1,24 +1,27 @@
-# app
+# firebaseasy(cliant side)
 
-## Project setup
-```
-npm install
-```
+Nakashima Package Manager
+略して【npm】で入れます。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+```bash
+npm i @firebaseasy/app
 ```
 
-### Compiles and minifies for production
-```
-npm run build
+# 使い方
+
+```js
+import { initFirebaseasy } from '@firebaseasy/app'
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+# 設定
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+if you use firebase@8
+
+```js
+import { initFirebaseasy } from '@firebaseasy/app'
+const firebaseApp = initFirebaseasy({
+  apiKey: '### FIREBASE API KEY ###',
+  authDomain: '### FIREBASE AUTH DOMAIN ###',
+  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+})
+```

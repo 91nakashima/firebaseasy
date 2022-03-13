@@ -10,16 +10,17 @@
 import { defineComponent, ref } from 'vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 import { createRef, easyConnect } from '../../../firestore/src/index'
-import { CollectionReference } from 'firebase/firestore'
+// import { CollectionReference } from 'firebase/firestore'
 import { randomName, easyUpload } from '../../../storage/src/index'
 import { easyDelObject } from '../../../storage/src/index'
 
 const getRef = ref()
 const funFile = async () => {
   const getFile = getRef.value.files[0]
+  console.log(getFile)
   const getURL = await easyUpload(`test/${randomName(20, getFile)}`, getFile)
   console.log(getURL)
-  easyDelObject('')
+  // easyDelObject('')
 }
 
 defineComponent({

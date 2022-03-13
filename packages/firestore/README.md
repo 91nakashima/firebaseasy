@@ -31,9 +31,6 @@ const firebaseApp = initializeApp({
   authDomain: '### FIREBASE AUTH DOMAIN ###',
   projectId: '### CLOUD FIRESTORE PROJECT ID ###'
 })
-
-// if you use vue3
-initEasyFirestore(true)
 ```
 
 # 機能
@@ -132,4 +129,42 @@ easyConnect(ref, 'D_ShowUser', (data) => {
   console.log(data)
   // please use vuex
 })
+
+/**
+ * ↓↓↓↓↓Sample Code↓↓↓↓↓
+ */
+import { createRef, easyConnect } from '@firebaseasy/firestore'
+import { CollectionReference } from 'firebase/firestore'
+
+const collectionName = 'ShowUser'
+
+function initialState () {
+  return {
+    data: {} // firestore data
+  }
+}
+
+export default {
+  namespaced: true,
+  state: initialState(),
+
+  getters: {
+    getShowUser: (state: any) => state.data
+  },
+
+  mutations: {
+    initData<T> (state: any, value: T) {
+      state.data = value
+    }
+  },
+
+  actions: {
+    async getDocs ({ dispatch, rootState, state, commit }: any): Promise<void> {
+      const ref = createRef(collectionName) as CollectionReference
+      easyConnect(ref, collectionName, snapshot => {
+        commit('initData', snapshot)
+      })
+    }
+  }
+}
 ```

@@ -6,16 +6,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "deploy": "npx tsc && npm publish",
-    "dev:app": "npm run serve -w app"
+    "dev:testapp": "npm run serve -w testapp"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/91nakashima/firebaseasy"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy",
-  "keywords": [
-    "firebase"
-  ],
+  "keywords": ["firebase"],
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
@@ -24,8 +22,5 @@
     "webpack-dev-server": "^4.7.4",
     "workspace": "^0.0.1-preview.1"
   },
-  "workspaces": [
-    "packages/*",
-    "packages/**/*"
-  ]
+  "workspaces": ["packages/*", "packages/**/*"]
 }

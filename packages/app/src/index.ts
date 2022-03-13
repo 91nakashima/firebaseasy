@@ -1,0 +1,1 @@
+export { initFirebaseasy } from './initFirebaseasy'
