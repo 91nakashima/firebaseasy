@@ -12,6 +12,7 @@ npm i @firebaseasy/storage
 ```js
 import { easyUpload, randomName } from '@firebaseasy/storage'
 import { easyDelObject } from '@firebaseasy/storage'
+import { easyDownload } from '@firebaseasy/storage'
 ```
 
 # 設定
@@ -65,4 +66,19 @@ easyDelObject('image/jdnajt93nd.jpg').then(
   d => console.log(d)
   // success
 )
+```
+
+```js
+import { easyDownload } from '@firebaseasy/storage'
+
+const url = 'https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa'
+easyDownload(url, undefined, progress => {
+  console.log('Upload is ' + progress + '% done')
+  // Upload is 100 '% done
+}).catch(e => {
+  console.log(e)
+  // Cannot download from this URL
+})
+
+easyDownload(url)
 ```

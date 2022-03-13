@@ -2,7 +2,7 @@ import { getStorage, ref } from 'firebase/storage'
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { TaskState } from 'firebase/storage'
 
-export function randomName (len = 20, file: File) {
+export function randomName (len = 20, file?: File) {
   let pass = ''
   const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const numbers = '0123456789'
