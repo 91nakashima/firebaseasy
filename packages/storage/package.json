@@ -1,8 +1,8 @@
 {
   "name": "@firebaseasy/storage",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
-  "main": "lib/src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
