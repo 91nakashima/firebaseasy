@@ -2,6 +2,9 @@ import { getStorage, ref } from 'firebase/storage'
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { TaskState } from 'firebase/storage'
 
+/**
+ *
+ */
 export function randomName (len = 20, file?: File) {
   let pass = ''
   const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -21,6 +24,9 @@ export function randomName (len = 20, file?: File) {
   return pass
 }
 
+/**
+ *
+ */
 export async function easyUpload (
   path: string,
   data: File | Blob | Uint8Array,
@@ -31,7 +37,7 @@ export async function easyUpload (
 
   const uploadTask = uploadBytesResumable(storageRef, data)
 
-  return new Promise((resolve, rejects) => {
+  return new Promise((resolve, reject) => {
     uploadTask.on(
       'state_changed',
       snapshot => {
@@ -43,7 +49,7 @@ export async function easyUpload (
         }
       },
       error => {
-        rejects(error)
+        reject(error)
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {

@@ -1,4 +1,7 @@
 import { randomName } from './index';
+/**
+ *
+ */
 export function easyDownload(url, name, fun) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);

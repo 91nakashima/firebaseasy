@@ -1,6 +1,9 @@
 import { __awaiter, __generator } from "tslib";
 import { getStorage, ref } from 'firebase/storage';
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+/**
+ *
+ */
 export function randomName(len, file) {
     if (len === void 0) { len = 20; }
     var pass = '';
@@ -18,6 +21,9 @@ export function randomName(len, file) {
     }
     return pass;
 }
+/**
+ *
+ */
 export function easyUpload(path, data, fun) {
     return __awaiter(this, void 0, void 0, function () {
         var storage, storageRef, uploadTask;

@@ -1,6 +1,9 @@
 import { getStorage, ref } from 'firebase/storage'
 import { deleteObject } from 'firebase/storage'
 
+/**
+ *
+ */
 export function easyDelObject (path: string) {
   if (path.includes('https://')) {
     const urlArr = path.split('/')

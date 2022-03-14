@@ -9,9 +9,3 @@ npm i @firebaseasy/storage
 ```
 
 ※if you use firebase@8 that please use `@firebaseasy/app`
-
-## server side
-
-```bash
-npm i @firebaseasy/functions
-```
