@@ -1,6 +1,5 @@
-import { getFirestore } from 'firebase/firestore'
-import { doc, deleteDoc, collection } from 'firebase/firestore'
-import { CollectionReference, DocumentReference } from 'firebase/firestore'
+import { deleteDoc } from 'firebase/firestore'
+import { DocumentReference } from 'firebase/firestore'
 
 import { createRef } from './createReference'
 

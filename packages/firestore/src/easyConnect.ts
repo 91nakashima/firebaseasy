@@ -1,5 +1,5 @@
 import { onSnapshot, Unsubscribe } from 'firebase/firestore'
-import { Query, CollectionReference, DocumentData } from 'firebase/firestore'
+import { Query, CollectionReference } from 'firebase/firestore'
 import { reactive } from 'vue'
 
 const state: any = {}
@@ -9,7 +9,7 @@ const config = {
 }
 
 /**
- *
+ * Firestore Real Time synchronization
  */
 const easyConnect = (
   reference: Query | CollectionReference,
@@ -49,7 +49,7 @@ const easyConnect = (
 }
 
 /**
- *
+ * Stop Firestore Real Time synchronization
  */
 const easyUnConnect = (key: string) => {
   const unsbscribe = state[key].subscribe as Unsubscribe

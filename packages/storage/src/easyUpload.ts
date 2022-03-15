@@ -3,7 +3,7 @@ import { uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { TaskState } from 'firebase/storage'
 
 /**
- *
+ * create random name
  */
 export function randomName (len = 20, file?: File) {
   let pass = ''
@@ -25,7 +25,7 @@ export function randomName (len = 20, file?: File) {
 }
 
 /**
- *
+ * upload file
  */
 export async function easyUpload (
   path: string,

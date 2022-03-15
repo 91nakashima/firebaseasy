@@ -1,7 +1,7 @@
 import { randomName } from './index'
 
 /**
- *
+ * Download from URL or Path
  */
 export function easyDownload (
   url: string,

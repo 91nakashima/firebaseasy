@@ -8,6 +8,9 @@ import { QueryOption, WhereOption } from './index'
 
 import { isTypeCollectionOrQuery } from './helpers/checkType'
 
+/**
+ * Create Reference
+ */
 export const createRef = (
   path: string,
   option?: QueryOption

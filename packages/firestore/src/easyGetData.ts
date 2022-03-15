@@ -1,10 +1,6 @@
-import { getFirestore } from 'firebase/firestore'
-import { doc, getDoc } from 'firebase/firestore'
-import { query, where, collection, getDocs } from 'firebase/firestore'
-import { orderBy, limit } from 'firebase/firestore'
+import { getDoc, getDocs } from 'firebase/firestore'
 
-import { CollectionReference, DocumentReference } from 'firebase/firestore'
-import { Query } from 'firebase/firestore'
+import { DocumentReference } from 'firebase/firestore'
 import { QueryOption, WhereOption } from '../types/easyGetData'
 
 import { createRef } from './createReference'

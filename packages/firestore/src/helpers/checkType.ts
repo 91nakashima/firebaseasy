@@ -2,7 +2,7 @@ import { CollectionReference } from 'firebase/firestore'
 import { Query } from 'firebase/firestore'
 
 /**
- * check type
+ * check type(CollectionReference | Query)
  */
 export const isTypeCollectionOrQuery = (
   r: any
