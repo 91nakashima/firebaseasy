@@ -4,11 +4,8 @@ var state = {};
 var config = {
     reactive: false
 };
-var initEasyFirestore = function (useReactive) {
-    config.reactive = useReactive;
-};
 /**
- *
+ * Firestore Real Time synchronization
  */
 var easyConnect = function (reference, key, fun) {
     var Unsubscribe = onSnapshot(reference, function (snapshot) {
@@ -42,12 +39,12 @@ var easyConnect = function (reference, key, fun) {
     });
 };
 /**
- *
+ * Stop Firestore Real Time synchronization
  */
 var easyUnConnect = function (key) {
     var unsbscribe = state[key].subscribe;
     unsbscribe();
     delete state[key];
 };
-export { initEasyFirestore, easyConnect, easyUnConnect };
+export { easyConnect, easyUnConnect };
 //# sourceMappingURL=easyConnect.js.map

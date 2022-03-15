@@ -3,6 +3,9 @@ import { doc, collection } from 'firebase/firestore';
 import { query, where, orderBy, limit } from 'firebase/firestore';
 import { DocumentReference } from 'firebase/firestore';
 import { isTypeCollectionOrQuery } from './helpers/checkType';
+/**
+ * Create Reference
+ */
 export var createRef = function (path, option) {
     var collectionArray = path.split('/').filter(function (d) { return d; });
     if (!collectionArray.length)

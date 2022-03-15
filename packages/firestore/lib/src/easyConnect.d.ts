@@ -1,11 +1,10 @@
 import { Query, CollectionReference } from 'firebase/firestore';
-declare const initEasyFirestore: (useReactive: boolean) => void;
 /**
- *
+ * Firestore Real Time synchronization
  */
 declare const easyConnect: (reference: Query | CollectionReference, key: string, fun?: ((e: object) => void) | undefined) => void;
 /**
- *
+ * Stop Firestore Real Time synchronization
  */
 declare const easyUnConnect: (key: string) => void;
-export { initEasyFirestore, easyConnect, easyUnConnect };
+export { easyConnect, easyUnConnect };

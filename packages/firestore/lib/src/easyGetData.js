@@ -1,6 +1,5 @@
 import { __awaiter, __generator } from "tslib";
-import { getDoc } from 'firebase/firestore';
-import { getDocs } from 'firebase/firestore';
+import { getDoc, getDocs } from 'firebase/firestore';
 import { DocumentReference } from 'firebase/firestore';
 import { createRef } from './createReference';
 import { isTypeCollectionOrQuery } from './helpers/checkType';
