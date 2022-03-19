@@ -87,6 +87,9 @@ export function easySetDoc(collectionPath, data) {
                     return [4 /*yield*/, updateDoc(doc(db, getPath), { id: newDoc.id })];
                 case 8:
                     _a.sent();
+                    if (!data.id)
+                        data.id = newDoc.id;
+                    console.log('\u001b[32measySetDoc\n' + data);
                     return [2 /*return*/, newDoc.id];
             }
         });

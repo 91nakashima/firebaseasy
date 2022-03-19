@@ -90,5 +90,8 @@ export async function easySetDoc<T> (
   const getPath = createPath(collectionPath, newDoc.id)
 
   await updateDoc(doc(db, getPath), { id: newDoc.id })
+
+  if (!data.id) data.id = newDoc.id
+  console.log('\u001b[32measySetDoc\n' + data)
   return newDoc.id
 }

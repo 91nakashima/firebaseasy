@@ -19,7 +19,10 @@ export async function easyDelDoc (path: string): Promise<string> {
     if (!(reference instanceof DocumentReference)) return reject()
 
     deleteDoc(reference)
-      .then(() => resolve('ok'))
+      .then(() => {
+        console.log(console.log('\u001b[32measyDelDoc\n' + path))
+        resolve('ok')
+      })
       .catch(() => reject())
   })
 }

@@ -1,9 +1,5 @@
 import { onSnapshot } from 'firebase/firestore';
-import { reactive } from 'vue';
 var state = {};
-var config = {
-    reactive: false
-};
 /**
  * Firestore Real Time synchronization
  */
@@ -18,9 +14,7 @@ var easyConnect = function (reference, key, fun) {
         }
         var copyHaveData = (_a = state[key]) === null || _a === void 0 ? void 0 : _a.data;
         snapshot.docChanges().map(function (change) {
-            var setData = config.reactive
-                ? reactive(change.doc.data())
-                : change.doc.data();
+            var setData = change.doc.data();
             if (change.type === 'added') {
                 copyHaveData[change.doc.id] = setData;
             }
@@ -33,6 +27,7 @@ var easyConnect = function (reference, key, fun) {
         });
         state[key].subscribe = Unsubscribe;
         state[key].data = copyHaveData;
+        console.log('\u001b[32measyConnect-> ' + key);
         if (!fun)
             return;
         fun(copyHaveData);

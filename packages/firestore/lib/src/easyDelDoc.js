@@ -21,7 +21,10 @@ export function easyDelDoc(path) {
                     if (!(reference instanceof DocumentReference))
                         return reject();
                     deleteDoc(reference)
-                        .then(function () { return resolve('ok'); })
+                        .then(function () {
+                        console.log(console.log('\u001b[32measyDelDoc\n' + path));
+                        resolve('ok');
+                    })
                         .catch(function () { return reject(); });
                 })];
         });

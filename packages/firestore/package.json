@@ -1,6 +1,6 @@
 {
   "name": "@firebaseasy/firestore",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Easy to use firestore",
   "main": "./lib/src/index.js",
   "scripts": {
