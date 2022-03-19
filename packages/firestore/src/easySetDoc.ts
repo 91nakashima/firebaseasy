@@ -18,6 +18,17 @@ const createPath = (path: string, id: string) => {
 }
 
 /**
+ * コンソール表示用
+ */
+export const createShowPath = (path: string, id: string) => {
+  const arr = path.split('/').filter(d => d)
+
+  path = `${arr[0]}/${id}`
+
+  return path
+}
+
+/**
  * set doc
  */
 export async function easySetDoc<T> (
@@ -74,6 +85,11 @@ export async function easySetDoc<T> (
       data.created_at = new Date()
       await setDoc(reference, data)
     }
+
+    console.log(
+      '\u001b[32measySetDoc-> ' + createShowPath(collectionPath, data.id)
+    )
+    console.log(JSON.parse(JSON.stringify(data)))
     return data.id
   }
 
@@ -92,6 +108,8 @@ export async function easySetDoc<T> (
   await updateDoc(doc(db, getPath), { id: newDoc.id })
 
   if (!data.id) data.id = newDoc.id
-  console.log('\u001b[32measySetDoc\n' + data)
+
+  console.log('\u001b[32measySetDoc-> ' + getPath)
+  console.log(JSON.parse(JSON.stringify(data)))
   return newDoc.id
 }

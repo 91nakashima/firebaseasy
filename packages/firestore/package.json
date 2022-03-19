@@ -1,10 +1,10 @@
 {
   "name": "@firebaseasy/firestore",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Easy to use firestore",
   "main": "./lib/src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "build": "npx tsc",
     "deploy": "npx tsc && npm publish"
   },
@@ -24,5 +24,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "workspaces": ["@firebaseasy/functions"]
+  "workspaces": ["@firebaseasy/functions"],
+  "devDependencies": {
+    "vitest": "^0.7.4"
+  }
 }

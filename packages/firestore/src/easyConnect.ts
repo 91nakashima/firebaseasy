@@ -36,11 +36,11 @@ const easyConnect = (
     state[key].subscribe = Unsubscribe
     state[key].data = copyHaveData
 
-    console.log('\u001b[32measyConnect-> ' + key)
-
     if (!fun) return
     fun(copyHaveData)
   })
+
+  console.log('\u001b[32measyConnect-> ' + key)
 }
 
 /**

@@ -27,11 +27,11 @@ var easyConnect = function (reference, key, fun) {
         });
         state[key].subscribe = Unsubscribe;
         state[key].data = copyHaveData;
-        console.log('\u001b[32measyConnect-> ' + key);
         if (!fun)
             return;
         fun(copyHaveData);
     });
+    console.log('\u001b[32measyConnect-> ' + key);
 };
 /**
  * Stop Firestore Real Time synchronization

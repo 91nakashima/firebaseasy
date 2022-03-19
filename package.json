@@ -4,10 +4,15 @@
   "description": "firebaseasy monorepo",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:firestore": "npm run test -w @firebaseasy/firestore",
+
+    "dev:testapp": "npm run serve -w testapp",
+
     "build": "npx tsc",
+    "build:firestore": "npm run build -w @firebaseasy/firestore",
+
     "deploy": "npx tsc && npm publish",
-    "dev:testapp": "npm run serve -w testapp"
+    "deploy:firestore": "npm run deploy -w @firebaseasy/firestore"
   },
   "repository": {
     "type": "git",

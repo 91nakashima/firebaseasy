@@ -16,6 +16,14 @@ var createPath = function (path, id) {
     return path;
 };
 /**
+ * コンソール表示用
+ */
+export var createShowPath = function (path, id) {
+    var arr = path.split('/').filter(function (d) { return d; });
+    path = "".concat(arr[0], "/").concat(id);
+    return path;
+};
+/**
  * set doc
  */
 export function easySetDoc(collectionPath, data) {
@@ -74,7 +82,10 @@ export function easySetDoc(collectionPath, data) {
                 case 4:
                     _a.sent();
                     _a.label = 5;
-                case 5: return [2 /*return*/, data.id];
+                case 5:
+                    console.log('\u001b[32measySetDoc-> ' + createShowPath(collectionPath, data.id));
+                    console.log(JSON.parse(JSON.stringify(data)));
+                    return [2 /*return*/, data.id];
                 case 6:
                     // idがない場合(create)
                     if (!(reference instanceof CollectionReference))
@@ -89,7 +100,8 @@ export function easySetDoc(collectionPath, data) {
                     _a.sent();
                     if (!data.id)
                         data.id = newDoc.id;
-                    console.log('\u001b[32measySetDoc\n' + data);
+                    console.log('\u001b[32measySetDoc-> ' + getPath);
+                    console.log(JSON.parse(JSON.stringify(data)));
                     return [2 /*return*/, newDoc.id];
             }
         });
