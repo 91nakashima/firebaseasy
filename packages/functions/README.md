@@ -82,7 +82,7 @@ easyDelete('anime/hogehoge')
 ```js
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { easySetDoc, easyGetData, easyDelete } from 'easy-firebase-functions'
+import { easySetDoc, easyGetData, easyDelDoc } from '@firebaseasy/functions'
 admin.initializeApp(functions.config().firebase)
 
 export const funSampleCode = functions
@@ -108,7 +108,7 @@ export const funSampleCode = functions
     // created_at: Timestamp { _seconds: 1646120963, _nanoseconds: 790000000 }
     // }]
 
-    await easyDelete('anime/uaIn0lyDOmKYlXyClhyb')
+    await easyDelDoc('anime/uaIn0lyDOmKYlXyClhyb')
       .then((d: string) => console.log(d)) // -> 'ok'
       .catch((e: any) => console.log(e)) // -> Error
   })
