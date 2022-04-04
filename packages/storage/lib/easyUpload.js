@@ -2,7 +2,7 @@ import { __awaiter, __generator } from "tslib";
 import { getStorage, ref } from 'firebase/storage';
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 /**
- *
+ * create random name
  */
 export function randomName(len, file) {
     if (len === void 0) { len = 20; }
@@ -22,7 +22,7 @@ export function randomName(len, file) {
     return pass;
 }
 /**
- *
+ * upload file
  */
 export function easyUpload(path, data, fun) {
     return __awaiter(this, void 0, void 0, function () {
@@ -31,14 +31,14 @@ export function easyUpload(path, data, fun) {
             storage = getStorage();
             storageRef = ref(storage, path);
             uploadTask = uploadBytesResumable(storageRef, data);
-            return [2 /*return*/, new Promise(function (resolve, rejects) {
+            return [2 /*return*/, new Promise(function (resolve, reject) {
                     uploadTask.on('state_changed', function (snapshot) {
                         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                         if (fun) {
                             fun(progress, snapshot.state);
                         }
                     }, function (error) {
-                        rejects(error);
+                        reject(error);
                     }, function () {
                         getDownloadURL(uploadTask.snapshot.ref).then(function (downloadURL) {
                             resolve(downloadURL);

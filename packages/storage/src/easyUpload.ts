@@ -30,7 +30,7 @@ export function randomName (len = 20, file?: File) {
 export async function easyUpload (
   path: string,
   data: File | Blob | Uint8Array,
-  fun?: (progress: number, status: TaskState) => void
+  fun?: (progress: number, status: TaskState) => string
 ) {
   const storage = getStorage()
   const storageRef = ref(storage, path)

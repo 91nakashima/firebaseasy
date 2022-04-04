@@ -1,7 +1,7 @@
 import { getStorage, ref } from 'firebase/storage';
 import { deleteObject } from 'firebase/storage';
 /**
- *
+ * Delete File from URL or Bath
  */
 export function easyDelObject(path) {
     if (path.includes('https://')) {

@@ -1,7 +1,7 @@
 import { getDoc, getDocs } from 'firebase/firestore'
 
-import { DocumentReference } from 'firebase/firestore'
-import { QueryOption, WhereOption } from '../types/easyGetData'
+import { DocumentReference, QueryDocumentSnapshot } from 'firebase/firestore'
+import { QueryOption } from '../types/easyGetData'
 
 import { createRef } from './createReference'
 import { isTypeCollectionOrQuery } from './helpers/checkType'
@@ -76,7 +76,7 @@ export async function easyGetDoc<T> (path: string): Promise<T | undefined> {
     getDoc(reference)
       .then(doc => {
         if (!doc.exists) return resolve(undefined)
-        resolve(doc.data() as T)
+        resolve(doc.data() as T | undefined)
       })
       .catch(() => rejects())
   })
@@ -98,9 +98,10 @@ export async function easyGetDocs<T> (
    * document data in Array
    */
   const arr: Array<T> = []
-  res.forEach(el => {
+  res.forEach((el: QueryDocumentSnapshot) => {
     if (!el.exists) return
-    arr.push(el.data() as T)
+    const obj = el.data() as unknown
+    arr.push(obj as T)
   })
 
   return arr

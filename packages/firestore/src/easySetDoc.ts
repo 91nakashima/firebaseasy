@@ -33,7 +33,7 @@ export const createShowPath = (path: string, id: string) => {
  */
 export async function easySetDoc<T> (
   collectionPath: string,
-  data: EasySetDoc & T
+  data: T & EasySetDoc
 ): Promise<string> {
   const collectionArray = collectionPath.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
@@ -76,7 +76,7 @@ export async function easySetDoc<T> (
        * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#update-data
        */
       data.updated_at = new Date()
-      await updateDoc(reference, data)
+      await updateDoc(reference, data as any)
     } else {
       /**
        * 情報がない場合(create)

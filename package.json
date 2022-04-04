@@ -10,9 +10,11 @@
 
     "build": "npx tsc",
     "build:firestore": "npm run build -w @firebaseasy/firestore",
+    "build:storage": "npm run build -w @firebaseasy/storage",
 
     "deploy": "npx tsc && npm publish",
-    "deploy:firestore": "npm run deploy -w @firebaseasy/firestore"
+    "deploy:firestore": "npm run deploy -w @firebaseasy/firestore",
+    "deploy:storage": "npm run deploy -w @firebaseasy/storage"
   },
   "repository": {
     "type": "git",

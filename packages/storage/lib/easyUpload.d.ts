@@ -1,9 +1,9 @@
 import { TaskState } from 'firebase/storage';
 /**
- *
+ * create random name
  */
 export declare function randomName(len?: number, file?: File): string;
 /**
- *
+ * upload file
  */
-export declare function easyUpload(path: string, data: File | Blob | Uint8Array, fun?: (progress: number, status: TaskState) => void): Promise<unknown>;
+export declare function easyUpload(path: string, data: File | Blob | Uint8Array, fun?: (progress: number, status: TaskState) => string): Promise<unknown>;
