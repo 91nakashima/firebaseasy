@@ -52,6 +52,12 @@ const getURL = await easyUpload(
     // "running" | "paused" | "success" | "canceled" | "error"
   }
 )
+
+// add metadata
+const metadata = {
+  contentType: 'image/jpeg'
+}
+const res = await easyUpload('img/car.jpeg', [buffer, metadata])
 ```
 
 ```js
