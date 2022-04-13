@@ -30,7 +30,9 @@ export function easyUpload(path, data, fun) {
         return __generator(this, function (_a) {
             storage = getStorage();
             storageRef = ref(storage, path);
-            uploadTask = uploadBytesResumable(storageRef, data);
+            uploadTask = Array.isArray(data)
+                ? uploadBytesResumable(storageRef, data[0], data[1])
+                : uploadBytesResumable(storageRef, data);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     uploadTask.on('state_changed', function (snapshot) {
                         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;

@@ -29,13 +29,19 @@ export function randomName (len = 20, file?: File) {
  */
 export async function easyUpload (
   path: string,
-  data: File | Blob | Uint8Array,
+  data:
+    | File
+    | Blob
+    | Uint8Array
+    | [Uint8Array | Blob | File, { contentType: string }],
   fun?: (progress: number, status: TaskState) => string
 ) {
   const storage = getStorage()
   const storageRef = ref(storage, path)
 
-  const uploadTask = uploadBytesResumable(storageRef, data)
+  const uploadTask = Array.isArray(data)
+    ? uploadBytesResumable(storageRef, data[0], data[1])
+    : uploadBytesResumable(storageRef, data)
 
   return new Promise((resolve, reject) => {
     uploadTask.on(
