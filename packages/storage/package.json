@@ -1,10 +1,10 @@
 {
   "name": "@firebaseasy/storage",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "build": "npx tsc",
     "deploy": "npx tsc && npm publish"
   },
@@ -16,7 +16,8 @@
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^9.6.8"
+    "firebase": "^9.6.10",
+    "vitest": "^0.9.3"
   },
   "publishConfig": {
     "access": "public"

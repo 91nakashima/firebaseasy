@@ -11,7 +11,7 @@ export function easyDelObject(path) {
     }
     var storage = getStorage();
     var desertRef = ref(storage, path);
-    new Promise(function (resolve, rejects) {
+    return new Promise(function (resolve, rejects) {
         deleteObject(desertRef)
             .then(function () {
             resolve('success');

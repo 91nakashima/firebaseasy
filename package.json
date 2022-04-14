@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test:firestore": "npm run test -w @firebaseasy/firestore",
+    "test:storage": "npm run test -w @firebaseasy/storage",
     "test:fun": "npm run test -w @firebaseasy/functions",
     "dev:vite": "npm run dev -w vite",
     "build": "npx tsc",
@@ -12,8 +13,8 @@
     "build:storage": "npm run build -w @firebaseasy/storage",
     "deploy": "npx tsc && npm publish",
     "deploy:firestore": "npm run deploy -w @firebaseasy/firestore",
-    "deploy:fun": "npm run deploy -w @firebaseasy/functions",
-    "deploy:storage": "npm run deploy -w @firebaseasy/storage"
+    "deploy:storage": "npm run deploy -w @firebaseasy/storage",
+    "deploy:fun": "npm run deploy -w @firebaseasy/functions"
   },
   "repository": {
     "type": "git",
