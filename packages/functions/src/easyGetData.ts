@@ -1,4 +1,4 @@
-import admin from './initAdmin'
+import { firestore } from './init'
 import {
   CollectionReference,
   DocumentReference,
@@ -32,7 +32,7 @@ export async function easyGetData<T> (
 
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
-      reference = admin.firestore().collection(collectionArray[i])
+      reference = firestore.collection(collectionArray[i])
     } else if (i % 2 === 1 && reference instanceof CollectionReference) {
       reference = reference.doc(collectionArray[i])
     } else if (i % 2 === 0 && reference instanceof DocumentReference) {
@@ -98,7 +98,7 @@ export async function easyGetData<T> (
   const arr: Array<T> = []
   res.forEach(el => {
     if (!el.exists) return
-    arr.push(el.data() as T)
+    arr.push((el.data() as unknown) as T)
   })
 
   return arr as GetDataType<T>
@@ -118,7 +118,7 @@ export async function easyGetDoc<T> (
 
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
-      reference = admin.firestore().collection(collectionArray[i])
+      reference = firestore.collection(collectionArray[i])
     } else if (i % 2 === 1 && reference instanceof CollectionReference) {
       reference = reference.doc(collectionArray[i])
     } else if (i % 2 === 0 && reference instanceof DocumentReference) {
@@ -137,7 +137,7 @@ export async function easyGetDoc<T> (
       .get()
       .then(doc => {
         if (!doc.exists) return resolve(undefined)
-        resolve(doc.data() as T)
+        resolve((doc.data() as unknown) as T)
       })
       .catch(() => rejects())
   })
@@ -157,7 +157,7 @@ export async function easyGetDocs<T> (
 
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
-      reference = admin.firestore().collection(collectionArray[i])
+      reference = firestore.collection(collectionArray[i])
     } else if (i % 2 === 1 && reference instanceof CollectionReference) {
       reference = reference.doc(collectionArray[i])
     } else if (i % 2 === 0 && reference instanceof DocumentReference) {
@@ -212,7 +212,7 @@ export async function easyGetDocs<T> (
   const arr: T[] = []
   res.forEach(el => {
     if (!el.exists) return
-    arr.push(el.data() as T)
+    arr.push((el.data() as unknown) as T)
   })
 
   return arr as T[]

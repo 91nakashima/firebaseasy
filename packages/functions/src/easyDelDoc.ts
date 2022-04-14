@@ -1,4 +1,4 @@
-import admin from './initAdmin'
+import { firestore } from './init'
 import {
   CollectionReference,
   DocumentReference
@@ -15,7 +15,7 @@ export async function easyDelDoc (data: string): Promise<string> {
   let reference: CollectionReference | DocumentReference | null = null
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
-      reference = admin.firestore().collection(collectionArray[i])
+      reference = firestore.collection(collectionArray[i])
     } else if (i % 2 === 1 && reference instanceof CollectionReference) {
       reference = reference.doc(collectionArray[i])
     } else if (i % 2 === 0 && reference instanceof DocumentReference) {
