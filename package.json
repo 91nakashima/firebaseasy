@@ -12,6 +12,7 @@
     "build:storage": "npm run build -w @firebaseasy/storage",
     "deploy": "npx tsc && npm publish",
     "deploy:firestore": "npm run deploy -w @firebaseasy/firestore",
+    "deploy:fun": "npm run deploy -w @firebaseasy/functions",
     "deploy:storage": "npm run deploy -w @firebaseasy/storage"
   },
   "repository": {

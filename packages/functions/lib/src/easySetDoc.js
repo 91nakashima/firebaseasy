@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easySetDoc = void 0;
-const initAdmin_1 = require("./initAdmin");
+const init_1 = require("./init");
 const firestore_1 = require("firebase-admin/firestore");
 /**
  * set doc
@@ -13,7 +13,7 @@ async function easySetDoc(path, data) {
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
-            reference = initAdmin_1.default.firestore().collection(collectionArray[i]);
+            reference = init_1.firestore.collection(collectionArray[i]);
         }
         else if (i % 2 === 1 && reference instanceof firestore_1.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
