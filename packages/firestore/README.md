@@ -118,22 +118,24 @@ easyGetDocs('anime')
 easyDelDoc('anime/abcdefghijklmnopqrstuvwxyz')
 ```
 
-接続
+use easyConnect Sample Code
 
 ```js
-import { isTypeCollectionOrQuery } from '@firebaseasy/firestore'
-const ref = createRef('D_ShowUser') as CollectionReference
-// const ref = createRef('D_ShowUser')
-// if (!(isTypeCollectionOrQuery(ref))) throw new Error()
-easyConnect(ref, 'D_ShowUser', (data) => {
-  console.log(data)
-  // please use vuex
-})
+import { easyConnect } from '@firebaseasy/firestore'
+export const showUserData = easyConnect('D_ShowUser')
+// export const showUserData = easyConnect('D_ShowUser/xxxxxxxxxx')
 
-/**
- * ↓↓↓↓↓Sample Code↓↓↓↓↓
- */
-import { createRef, easyConnect } from '@firebaseasy/firestore'
+// ↓different file↓
+import { showUserData } from './index'
+const showUserArray = computed(() => {
+  return Array.from(showUserData.data.values())
+})
+```
+
+Vuex Sample Code
+
+```js
+import { easyConnect } from '@firebaseasy/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
 const collectionName = 'ShowUser'

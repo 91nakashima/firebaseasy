@@ -1,6 +1,6 @@
 {
   "name": "@firebaseasy/firestore",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Easy to use firestore",
   "main": "./lib/src/index.js",
   "scripts": {
@@ -13,9 +13,7 @@
     "url": "https://github.com/91nakashima/firebaseasy/tree/main/packeges/firestore"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy",
-  "keywords": [
-    "firebase"
-  ],
+  "keywords": ["firebase"],
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
@@ -26,9 +24,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "workspaces": [
-    "@firebaseasy/functions"
-  ],
+  "workspaces": ["@firebaseasy/functions"],
   "devDependencies": {
     "vitest": "^0.7.4"
   }

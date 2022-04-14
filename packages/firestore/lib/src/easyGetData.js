@@ -97,7 +97,8 @@ export function easyGetDocs(path, option) {
                     res.forEach(function (el) {
                         if (!el.exists)
                             return;
-                        arr.push(el.data());
+                        var obj = el.data();
+                        arr.push(obj);
                     });
                     return [2 /*return*/, arr];
             }

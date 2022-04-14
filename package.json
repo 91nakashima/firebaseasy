@@ -6,7 +6,7 @@
   "scripts": {
     "test:firestore": "npm run test -w @firebaseasy/firestore",
 
-    "dev:testapp": "npm run serve -w testapp",
+    "dev:vite": "npm run dev -w vite",
 
     "build": "npx tsc",
     "build:firestore": "npm run build -w @firebaseasy/firestore",
