@@ -1,0 +1,1 @@
+export { easySetDoc } from './easySetDoc'
