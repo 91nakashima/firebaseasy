@@ -27,9 +27,10 @@ export const easyConnect = <T>(
 
       if (doc.exists()) {
         state[path]?.data.set(doc.id, setData as T)
-      } else {
-        state[path]?.data.delete(doc.id)
       }
+      // else {
+      //   state[path]?.data.delete(doc.id as any)
+      // }
 
       if (!fun) return
       fun(state[path]?.data)

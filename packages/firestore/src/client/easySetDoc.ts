@@ -3,7 +3,7 @@ import { doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore'
 import { collection } from 'firebase/firestore'
 import { CollectionReference, DocumentReference } from 'firebase/firestore'
 
-import { EasySetDoc } from '../types/EasySetDoc'
+import { EasySetDoc } from '../../types/EasySetDoc'
 
 /**
  * pathを作成

@@ -2,12 +2,13 @@
   "name": "@firebaseasy/firestore",
   "version": "0.1.11",
   "description": "Easy to use firestore",
-  "main": "./lib/src/index.js",
-  "module": "",
+  "main": "./lib/src/client/index.js",
+  "module": "./lib/src/admin/index.js",
   "scripts": {
     "test": "vitest",
-    "build": "npx tsc src/index.ts",
-    "build:server": "vite build --outDir lib/admin --ssr src/admin/index.ts",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "npx tsc --project tsconfig.json",
+    "build:server": "npx tsc --project tsconfig.admin.json",
     "deploy": "npx tsc && npm publish"
   },
   "repository": {
