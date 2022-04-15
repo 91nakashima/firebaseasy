@@ -1,9 +1,9 @@
 import { test, expect } from 'vitest'
-import { easySetDoc } from '../src/index'
+import { easySetDoc } from '../../src/admin'
 
-test('情報の取得', async () => {
+test('情報の追加(admin)', async () => {
   const res = await easySetDoc('Test', {
-    id: 'aaa'
+    text: 'テスト'
   })
   console.log(res)
   expect(res).toBeTypeOf('string')

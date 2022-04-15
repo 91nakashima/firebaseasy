@@ -2,20 +2,9 @@ import { getFirestore } from 'firebase/firestore'
 import { doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore'
 import { collection } from 'firebase/firestore'
 import { CollectionReference, DocumentReference } from 'firebase/firestore'
+import { createPath } from '../common'
 
 import { EasySetDoc } from '../../types/EasySetDoc'
-
-/**
- * pathを作成
- */
-const createPath = (path: string, id: string) => {
-  if (path.slice(-1) === '/') {
-    path = `${path}${id}`
-  } else {
-    path = `${path}/${id}`
-  }
-  return path
-}
 
 /**
  * コンソール表示用

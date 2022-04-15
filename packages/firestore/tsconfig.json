@@ -1,8 +1,24 @@
+// {
+//   "extends": "../../config/tsconfig.base.json",
+//   "compilerOptions": {
+//     "outDir": "lib/client"
+//   },
+//   "exclude": ["dist/**/*"],
+//   "include": ["src/client/**/*"]
+// }
+
+//* vitestのコンパイルオプションでありそうだけど・・・
 {
-  "extends": "../../config/tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "lib/client"
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib/admin",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017"
   },
-  "exclude": ["dist/**/*"],
-  "include": ["src/client/**/*"]
+  "compileOnSave": true,
+  "include": ["src/admin/**/*"],
+  "exclude": ["node_modules"]
 }
