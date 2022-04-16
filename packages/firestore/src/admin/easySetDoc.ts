@@ -5,7 +5,7 @@ import {
   DocumentReference,
   CollectionReference
 } from 'firebase-admin/firestore'
-import { EasySetDoc } from '../../types/EasySetDoc'
+import { EasySetDoc } from '../types/EasySetDoc'
 
 /**
  * set doc
@@ -37,7 +37,10 @@ export const easySetDoc = async <T>(
       if (i === collectionArray.length - 1) {
         // DocumentReference
         if (collectionArray[i] !== data.id) throw new Error()
-        if (data.id) reference = reference.doc(data.id)
+
+        if (data.id && reference instanceof CollectionReference) {
+          reference = reference.doc(data.id)
+        }
       }
 
       // CollectionReference

@@ -10,6 +10,6 @@ export { createRef } from './createReference'
 export { isTypeCollectionOrQuery } from './helpers/checkType'
 
 // type
-export { WhereOption, QueryOption } from '../../types/easyGetData'
-export { EasySetDoc } from '../../types/easySetDoc'
-export { ConnectOption } from '../../types/easyConnect'
+export { WhereOption, QueryOption } from '../types/easyGetData'
+export { EasySetDoc } from '../types/EasySetDoc'
+export { ConnectOption } from '../types/easyConnect'

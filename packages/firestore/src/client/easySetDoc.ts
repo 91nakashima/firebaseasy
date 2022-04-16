@@ -4,7 +4,7 @@ import { collection } from 'firebase/firestore'
 import { CollectionReference, DocumentReference } from 'firebase/firestore'
 import { createPath } from '../common'
 
-import { EasySetDoc } from '../../types/EasySetDoc'
+import { EasySetDoc } from '../types/EasySetDoc'
 
 /**
  * コンソール表示用

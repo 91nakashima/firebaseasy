@@ -2,8 +2,7 @@
   "name": "@firebaseasy/firestore",
   "version": "0.1.11",
   "description": "Easy to use firestore",
-  "main": "./lib/src/client/index.js",
-  "module": "./lib/src/admin/index.js",
+  "main": "./esm/client/index.js",
   "scripts": {
     "test": "vitest",
     "build": "npm run build:client && npm run build:server",

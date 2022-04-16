@@ -6,7 +6,7 @@ import {
   DocumentReference,
   Query
 } from 'firebase-admin/firestore'
-import { QueryOption, WhereOption } from '../../types/easyGetData'
+import { QueryOption, WhereOption } from '../types/easyGetData'
 
 /**
  * Create Reference

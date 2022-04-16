@@ -1,11 +1,10 @@
-// {
-//   "extends": "../../config/tsconfig.base.json",
-//   "compilerOptions": {
-//     "outDir": "lib/client"
-//   },
-//   "exclude": ["dist/**/*"],
-//   "include": ["src/client/**/*"]
-// }
+{
+  "extends": "../../config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "esm"
+  },
+  "include": ["src/client/**/*"]
+}
 
 //* vitestのコンパイルオプションでありそうだけど・・・
 //* admin
@@ -24,10 +23,10 @@
 //   "exclude": ["node_modules"]
 // }
 //* client
-{
-  "extends": "../../config/tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "lib/client"
-  },
-  "exclude": ["dist/**/*"]
-}
+// {
+//   "extends": "../../config/tsconfig.base.json",
+//   "compilerOptions": {
+//     "outDir": "lib/client"
+//   },
+//   "exclude": ["dist/**/*"]
+// }

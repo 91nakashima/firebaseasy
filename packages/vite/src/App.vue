@@ -4,22 +4,22 @@ import { ref, computed, watch } from 'vue'
 import { createRef, easyConnect } from '@firebaseasy/firestore'
 import { CollectionReference } from 'firebase/firestore'
 
-const showUserData = easyConnect('D_ShowUser')
+const TestData = easyConnect('Test')
 
 const showUserArray = computed(() => {
-  return Array.from(showUserData.data.values())
+  return Array.from(TestData.data.values())
 })
 
 const funbey = () => {
-  showUserData.unsbscribe()
+  TestData.unsbscribe()
 }
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <div @click="funbey">クリック</div>
 
+  <div @click="funbey">クリック</div>
   <pre>{{ showUserArray }}</pre>
 </template>
 

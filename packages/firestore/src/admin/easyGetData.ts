@@ -1,7 +1,7 @@
 import { createRef } from './createReference'
 import { isTypeCollectionOrQuery } from './helpers/checkType'
 import { DocumentReference } from 'firebase-admin/firestore'
-import { QueryOption } from '../../types/easyGetData'
+import { QueryOption } from '../types/easyGetData'
 
 type GetDataType<T> = T extends any[] ? T : T | undefined
 
