@@ -1,5 +1,5 @@
-import './init'
+// import './init'
 
 // import './easyDelDoc'
 // import './easyGetData'
-import './easySetDoc'
+// import './easySetDoc'

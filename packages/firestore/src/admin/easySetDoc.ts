@@ -26,8 +26,8 @@ export const easySetDoc = async <T>(
     } else if (i % 2 === 1 && reference instanceof CollectionReference) {
       // 最後
       if (i === collectionArray.length - 1) {
-        if (collectionArray[i] !== data.id) throw new Error() // エラー
         if (!data.id) data.id = collectionArray[i] // 代入
+        if (collectionArray[i] !== data.id) throw new Error() // エラー
       }
 
       // DocumentReference

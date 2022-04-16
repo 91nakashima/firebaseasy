@@ -1,3 +1,5 @@
+import './init'
+
 // modules
 export { easySetDoc } from './easySetDoc'
 export { easyGetData, easyGetDoc, easyGetDocs } from './easyGetData'

@@ -8,17 +8,26 @@
 // }
 
 //* vitestのコンパイルオプションでありそうだけど・・・
+//* admin
+// {
+//   "compilerOptions": {
+//     "module": "commonjs",
+//     "noImplicitReturns": true,
+//     "noUnusedLocals": true,
+//     "outDir": "lib/admin",
+//     "sourceMap": true,
+//     "resolveJsonModule": true,
+//     "strict": true,
+//     "target": "es2017"
+//   },
+//   "compileOnSave": true,
+//   "exclude": ["node_modules"]
+// }
+//* client
 {
+  "extends": "../../config/tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "lib/admin",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2017"
+    "outDir": "lib/client"
   },
-  "compileOnSave": true,
-  "include": ["src/admin/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["dist/**/*"]
 }

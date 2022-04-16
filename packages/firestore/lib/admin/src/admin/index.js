@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easyDelDoc = exports.easyGetDocs = exports.easyGetDoc = exports.easyGetData = exports.easySetDoc = void 0;
+require("./init");
 // modules
 var easySetDoc_1 = require("./easySetDoc");
 Object.defineProperty(exports, "easySetDoc", { enumerable: true, get: function () { return easySetDoc_1.easySetDoc; } });
