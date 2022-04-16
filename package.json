@@ -11,6 +11,7 @@
     "build": "npx tsc",
     "build:firestore": "npm run build -w @firebaseasy/firestore",
     "build:storage": "npm run build -w @firebaseasy/storage",
+    "build:fun": "npm run build -w @firebaseasy/functions",
     "deploy": "npx tsc && npm publish",
     "deploy:firestore": "npm run deploy -w @firebaseasy/firestore",
     "deploy:storage": "npm run deploy -w @firebaseasy/storage",
@@ -21,9 +22,7 @@
     "url": "https://github.com/91nakashima/firebaseasy"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy",
-  "keywords": [
-    "firebase"
-  ],
+  "keywords": ["firebase"],
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
@@ -34,8 +33,5 @@
     "webpack-dev-server": "^4.7.4",
     "workspace": "^0.0.1-preview.1"
   },
-  "workspaces": [
-    "packages/*",
-    "packages/**/*"
-  ]
+  "workspaces": ["packages/*", "packages/**/*"]
 }
