@@ -1,6 +1,8 @@
 import { getStorage, ref } from 'firebase/storage'
 import { deleteObject } from 'firebase/storage'
 
+import { StorageReference } from 'firebase/storage'
+
 /**
  * Delete File from URL or Bath
  */
@@ -12,7 +14,7 @@ export function easyDelObject (path: string): Promise<'success'> {
   }
 
   const storage = getStorage()
-  const desertRef = ref(storage, path)
+  const desertRef: StorageReference = ref(storage, path)
 
   return new Promise((resolve, rejects) => {
     deleteObject(desertRef)

@@ -1,11 +1,11 @@
-import { firestore } from './init'
+import { firestore } from '../init'
 import {
   CollectionReference,
   DocumentReference,
   Query
 } from 'firebase-admin/firestore'
 
-import { QueryOption, WhereOption } from '../types/easyGetData'
+import { QueryOption, WhereOption } from '../../types/easyGetData'
 
 type GetDataType<T> = T extends any[] ? T : T | undefined
 

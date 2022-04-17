@@ -1,11 +1,11 @@
-import { firestore } from './init'
-import { randamString } from './common'
+import { firestore } from '../init'
+import { randamString } from '../common'
 
 import {
   DocumentReference,
   CollectionReference
 } from 'firebase-admin/firestore'
-import { EasySetDoc } from '../types/EasySetDoc'
+import { EasySetDoc } from '../../types/EasySetDoc'
 
 /**
  * set doc

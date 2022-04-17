@@ -1,4 +1,4 @@
-import { firestore } from './init'
+import { firestore } from '../init'
 import {
   CollectionReference,
   DocumentReference

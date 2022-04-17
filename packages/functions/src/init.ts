@@ -1,13 +1,33 @@
 import { config } from 'firebase-functions'
-// import { getApps } from 'firebase-admin/app'
-import { initializeApp } from 'firebase-admin/app'
+import { initializeApp, getApp, getApps } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
 import { getAuth } from 'firebase-admin/auth'
+import { getStorage } from 'firebase-admin/storage'
+import { state } from './setup'
 
-// if (!getApps().length) {
-//  initializeApp(config().firebase, 'easy-firebase-functions')
-// }
+/**
+ * init
+ */
+export const funAdmin = () => {
+  if (!getApps().length) {
+    return initializeApp(config().firebase, 'easy-firebase-functions')
+  }
+  return state.app ?? getApp()
+}
 
-const admin = initializeApp(config().firebase, 'easy-firebase-functions')
-export const firestore = getFirestore(admin)
-export const auth = getAuth(admin)
+/**
+ * プロジェクトIDを取得
+ */
+export const funGebucket = (): string => {
+  if (state.bucket) return state.bucket
+
+  if (funAdmin().options.projectId) {
+    return `${funAdmin().options.projectId}.appspot.com`
+  }
+
+  return ''
+}
+
+export const firestore = getFirestore(funAdmin())
+export const auth = getAuth(funAdmin())
+export const storage = getStorage(funAdmin())
