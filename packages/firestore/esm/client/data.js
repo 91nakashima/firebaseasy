@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 /**
- *
+ * 情報
  */
 export var state = reactive({});
 /**

@@ -31,5 +31,5 @@
     "webpack-dev-server": "^4.7.4",
     "workspace": "^0.0.1-preview.1"
   },
-  "workspaces": ["packages/*", "packages/**/*"]
+  "workspaces": ["packages/*", "packages/**/*", "sampleCloudFunctions"]
 }

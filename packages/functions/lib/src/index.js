@@ -1,13 +1,22 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.easyDelDoc = exports.easyGetDocs = exports.easyGetDoc = exports.easyGetData = exports.easySetDoc = void 0;
-// modules
-var easySetDoc_1 = require("./easySetDoc");
-Object.defineProperty(exports, "easySetDoc", { enumerable: true, get: function () { return easySetDoc_1.easySetDoc; } });
-var easyGetData_1 = require("./easyGetData");
-Object.defineProperty(exports, "easyGetData", { enumerable: true, get: function () { return easyGetData_1.easyGetData; } });
-Object.defineProperty(exports, "easyGetDoc", { enumerable: true, get: function () { return easyGetData_1.easyGetDoc; } });
-Object.defineProperty(exports, "easyGetDocs", { enumerable: true, get: function () { return easyGetData_1.easyGetDocs; } });
-var easyDelDoc_1 = require("./easyDelDoc");
-Object.defineProperty(exports, "easyDelDoc", { enumerable: true, get: function () { return easyDelDoc_1.easyDelDoc; } });
+exports.initializeEasyApp = void 0;
+var setup_1 = require("./setup");
+Object.defineProperty(exports, "initializeEasyApp", { enumerable: true, get: function () { return setup_1.initializeEasyApp; } });
+__exportStar(require("./firestore"), exports);
+__exportStar(require("./storage"), exports);
 //# sourceMappingURL=index.js.map

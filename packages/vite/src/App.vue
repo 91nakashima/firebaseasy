@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import { ref, computed, watch } from 'vue'
-import { createRef, easyConnect } from '@firebaseasy/firestore'
-import { CollectionReference } from 'firebase/firestore'
-
-const TestData = easyConnect('Test')
+import { dbTest } from './firebase'
 
 const showUserArray = computed(() => {
-  return Array.from(TestData.data.values())
+  // return Array.from(dbTest.data.values())
+  // return [...dbTest.data.values()]
+  return dbTest.arr
 })
 
 const funbey = () => {
-  TestData.unsbscribe()
+  dbTest.unsbscribe()
 }
 </script>
 
@@ -19,7 +18,7 @@ const funbey = () => {
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
 
-  <div @click="funbey">クリック</div>
+  <div @click="funbey">unsbscribeクリック</div>
   <pre>{{ showUserArray }}</pre>
 </template>
 

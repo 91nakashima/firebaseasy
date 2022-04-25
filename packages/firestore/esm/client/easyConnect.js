@@ -52,6 +52,11 @@ export var easyConnect = function (path, option, fun) {
     console.log('\u001b[32measyConnect-> ' + path);
     return {
         data: state[path].data,
+        arr: new Proxy(state[path].data, {
+            get: function () {
+                return Array.from(state[path].data.values());
+            }
+        }),
         unsbscribe: function () { return easyUnConnect(path); }
     };
 };

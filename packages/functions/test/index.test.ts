@@ -7,7 +7,8 @@ import { test, expect } from 'vitest'
 // import './firestore/easySetDoc'
 
 // *storage
-import './storage/easyDelObject'
+// import './storage/easyDelObject'
+import './storage/easyDownload'
 
 test('テストを実行', () => {
   expect(1 + 1).toBe(2)

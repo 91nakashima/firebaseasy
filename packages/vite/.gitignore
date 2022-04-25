@@ -1,4 +1,5 @@
 src/firebase/config.json
+
 # Logs
 logs
 *.log

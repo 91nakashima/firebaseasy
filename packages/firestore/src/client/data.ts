@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 import { Unsubscribe } from 'firebase/firestore'
 
 /**
- *
+ * 情報
  */
 export const state: {
   [key: string]: {

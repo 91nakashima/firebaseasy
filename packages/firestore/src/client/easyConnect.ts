@@ -13,7 +13,11 @@ export const easyConnect = <T>(
   path: string,
   option?: QueryOption,
   fun?: (e: Map<string, T>) => void
-) => {
+): {
+  data: Map<string, T>
+  arr: T[]
+  unsbscribe: Function
+} => {
   // refarenceを作成
   const reference = createRef(path, option)
 
@@ -61,6 +65,11 @@ export const easyConnect = <T>(
 
   return {
     data: state[path].data,
+    arr: (new Proxy(state[path].data, {
+      get: () => {
+        return Array.from(state[path].data.values())
+      }
+    }) as unknown) as T[],
     unsbscribe: () => easyUnConnect(path)
   }
 }
