@@ -1,7 +1,7 @@
 {
   "name": "@firebaseasy/firestore",
   "description": "Easy to use firestore",
-  "version": "0.1.11",
+  "version": "1.0.0-alpha.0",
   "type": "commonjs",
   "main": "./esm/client/index.js",
   "exports": {
@@ -13,7 +13,7 @@
     "build": "npm run build:client && npm run build:server",
     "build:client": "npx tsc --project tsconfig.json",
     "build:server": "npx tsc --project tsconfig.admin.json",
-    "deploy": "npx tsc && npm publish"
+    "deploy": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",

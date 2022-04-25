@@ -1,4 +1,4 @@
-# firebaseasy(cliant side)
+# firebaseasy(You can use browser and server)
 
 Nakashima Package Manager
 略して【npm】で入れます。
@@ -14,12 +14,13 @@ import { easySetDoc } from '@firebaseasy/firestore'
 import { easyGetData, easyGetDoc, easyGetDocs } from '@firebaseasy/firestore'
 import { easyDelDoc } from '@firebaseasy/firestore'
 
-import { initEasyFirestore } from '@firebaseasy/firestore'
-import { easyConnect, easyUnConnect } from '@firebaseasy/firestore'
-import { createRef } from '@firebaseasy/firestore'
-
 // Type
 import { EasySetDoc, QueryOption, WhereOption } from '@firebaseasy/firestore'
+
+// ↓only browser
+import { easyConnect, easyUnConnect } from '@firebaseasy/firestore'
+import { createRef } from '@firebaseasy/firestore'
+export { isTypeCollectionOrQuery } from './helpers/checkType'
 ```
 
 # 設定
@@ -30,6 +31,14 @@ const firebaseApp = initializeApp({
   apiKey: '### FIREBASE API KEY ###',
   authDomain: '### FIREBASE AUTH DOMAIN ###',
   projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+})
+
+// or
+
+const admin = require('firebase-admin')
+const serviceAccount = require('path/to/serviceAccountKey.json')
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
 })
 ```
 
