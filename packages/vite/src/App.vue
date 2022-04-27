@@ -3,6 +3,8 @@ import HelloWorld from './components/HelloWorld.vue'
 import { ref, computed, watch } from 'vue'
 import { dbTest } from './firebase'
 
+dbTest.run()
+
 const showUserArray = computed(() => {
   // return Array.from(dbTest.data.values())
   // return [...dbTest.data.values()]

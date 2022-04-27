@@ -1,5 +1,4 @@
-import { getFirestore } from 'firebase/firestore'
-import { doc, collection } from 'firebase/firestore'
+import { doc, collection, getFirestore } from 'firebase/firestore'
 import { query, where, orderBy, limit } from 'firebase/firestore'
 
 import { CollectionReference, DocumentReference } from 'firebase/firestore'
@@ -19,6 +18,7 @@ export const createRef = (
   if (!collectionArray.length) throw new Error()
 
   let reference: Query | CollectionReference | DocumentReference | null = null
+
   const db = getFirestore()
   const dataNum = collectionArray.length
 

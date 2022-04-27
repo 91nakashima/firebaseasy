@@ -1,7 +1,7 @@
 {
   "name": "@firebaseasy/firestore",
   "description": "Easy to use firestore",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "type": "commonjs",
   "main": "./esm/client/index.js",
   "exports": {
@@ -34,7 +34,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "workspaces": ["@firebaseasy/functions"],
   "devDependencies": {
     "vitest": "^0.7.4"
   }

@@ -1,5 +1,4 @@
-import { getFirestore } from 'firebase/firestore';
-import { doc, collection } from 'firebase/firestore';
+import { doc, collection, getFirestore } from 'firebase/firestore';
 import { query, where, orderBy, limit } from 'firebase/firestore';
 import { DocumentReference } from 'firebase/firestore';
 import { isTypeCollectionOrQuery } from './helpers/checkType';

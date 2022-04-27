@@ -1,16 +1,20 @@
-import { initializeApp } from 'firebase/app'
-import { FirebaseApp, FirebaseOptions } from 'firebase/app'
+import { Firestore } from 'firebase/firestore'
+import { FirebaseStorage } from 'firebase/storage'
 
-let easyApp: FirebaseApp | undefined = undefined
-
-export function initFirebaseasy (
-  options: FirebaseOptions,
-  name?: string | undefined
-) {
-  easyApp = initializeApp(options, name)
-  return easyApp
+type Data = {
+  firestore: Firestore | null
+  storage: FirebaseStorage | null
 }
 
-export function getEasyApp (): FirebaseApp | undefined {
-  return easyApp
+export const firebaseRefarenceData: Data = {
+  firestore: null,
+  storage: null
+}
+
+export function initFirebaseasy (
+  firestore: Firestore | null = null,
+  storage: FirebaseStorage | null = null
+) {
+  firebaseRefarenceData.firestore = firestore
+  firebaseRefarenceData.storage = storage
 }

@@ -1,6 +1,5 @@
 import { __awaiter, __generator } from "tslib";
-import { getFirestore } from 'firebase/firestore';
-import { doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, addDoc, updateDoc, getFirestore } from 'firebase/firestore';
 import { collection } from 'firebase/firestore';
 import { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { createPath } from '../common';
