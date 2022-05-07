@@ -1,7 +1,7 @@
 {
   "name": "@firebaseasy/firestore",
   "description": "Easy to use firestore",
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0",
   "main": "./esm/client/index.js",
   "scripts": {
     "test": "vitest",
