@@ -1,0 +1,6 @@
+/node_modules
+/tsconfig.json
+/tsconfig.admin.json
+/vitest.config.ts
+/.gitignore
+/test

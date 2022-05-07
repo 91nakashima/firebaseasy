@@ -6,13 +6,13 @@ import { isTypeCollectionOrQuery } from './helpers/checkType';
 /**
  * get Doc or collection Data
  */
-export function easyGetData(path, option) {
+export function easyGetData(db, path, option) {
     return __awaiter(this, void 0, void 0, function () {
         var reference, res, arr;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    reference = createRef(path, option);
+                    reference = createRef(db, path, option);
                     /**
                      * DocumentReferenceの場合
                      */
@@ -50,11 +50,11 @@ export function easyGetData(path, option) {
 /**
  * get Doc Data
  */
-export function easyGetDoc(path) {
+export function easyGetDoc(db, path) {
     return __awaiter(this, void 0, void 0, function () {
         var reference;
         return __generator(this, function (_a) {
-            reference = createRef(path);
+            reference = createRef(db, path);
             /**
              * DocumentReference以外の場合はエラー
              */
@@ -77,13 +77,13 @@ export function easyGetDoc(path) {
 /**
  * get Collection Data
  */
-export function easyGetDocs(path, option) {
+export function easyGetDocs(db, path, option) {
     return __awaiter(this, void 0, void 0, function () {
         var reference, res, arr;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    reference = createRef(path, option);
+                    reference = createRef(db, path, option);
                     if (!isTypeCollectionOrQuery(reference))
                         throw new Error();
                     return [4 /*yield*/, getDocs(reference)

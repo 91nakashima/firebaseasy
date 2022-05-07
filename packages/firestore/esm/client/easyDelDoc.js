@@ -6,11 +6,11 @@ import { createRef } from './createReference';
  * delete Doc
  * @params 'cities/LA'
  */
-export function easyDelDoc(path) {
+export function easyDelDoc(db, path) {
     return __awaiter(this, void 0, void 0, function () {
         var reference;
         return __generator(this, function (_a) {
-            reference = createRef(path);
+            reference = createRef(db, path);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     /**
                      * ドキュメントを削除
@@ -22,7 +22,7 @@ export function easyDelDoc(path) {
                         return reject();
                     deleteDoc(reference)
                         .then(function () {
-                        console.log(console.log('\u001b[32measyDelDoc\n' + path));
+                        console.log('\u001b[32measyDelDoc\n' + path);
                         resolve('ok');
                     })
                         .catch(function () { return reject(); });

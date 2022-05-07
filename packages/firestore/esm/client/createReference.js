@@ -1,16 +1,16 @@
-import { doc, collection, getFirestore } from 'firebase/firestore';
+import { doc, collection } from 'firebase/firestore';
 import { query, where, orderBy, limit } from 'firebase/firestore';
 import { DocumentReference } from 'firebase/firestore';
 import { isTypeCollectionOrQuery } from './helpers/checkType';
 /**
  * Create Reference
  */
-export var createRef = function (path, option) {
+export var createRef = function (db, path, option) {
     var collectionArray = path.split('/').filter(function (d) { return d; });
     if (!collectionArray.length)
         throw new Error();
     var reference = null;
-    var db = getFirestore();
+    // const db: Firestore = getFirestore()
     var dataNum = collectionArray.length;
     if (dataNum === 1 || dataNum % 2 === 1) {
         // collection

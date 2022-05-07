@@ -1,6 +1,10 @@
 import { getDoc, getDocs } from 'firebase/firestore'
 
-import { DocumentReference, QueryDocumentSnapshot } from 'firebase/firestore'
+import {
+  Firestore,
+  DocumentReference,
+  QueryDocumentSnapshot
+} from 'firebase/firestore'
 import { QueryOption } from '../types/easyGetData'
 
 import { createRef } from './createReference'
@@ -24,10 +28,11 @@ type GetDataType<T> = T extends any[] ? T : T | undefined
  * get Doc or collection Data
  */
 export async function easyGetData<T> (
+  db: Firestore,
   path: string,
   option?: QueryOption
 ): Promise<GetDataType<T>> {
-  const reference = createRef(path, option)
+  const reference = createRef(db, path, option)
 
   /**
    * DocumentReferenceの場合
@@ -62,8 +67,11 @@ export async function easyGetData<T> (
 /**
  * get Doc Data
  */
-export async function easyGetDoc<T> (path: string): Promise<T | undefined> {
-  const reference = createRef(path)
+export async function easyGetDoc<T> (
+  db: Firestore,
+  path: string
+): Promise<T | undefined> {
+  const reference = createRef(db, path)
 
   /**
    * DocumentReference以外の場合はエラー
@@ -86,10 +94,11 @@ export async function easyGetDoc<T> (path: string): Promise<T | undefined> {
  * get Collection Data
  */
 export async function easyGetDocs<T> (
+  db: Firestore,
   path: string,
   option?: QueryOption
 ): Promise<T[]> {
-  const reference = createRef(path, option)
+  const reference = createRef(db, path, option)
 
   if (!isTypeCollectionOrQuery(reference)) throw new Error()
   const res = await getDocs(reference)

@@ -27,19 +27,21 @@ export { isTypeCollectionOrQuery } from './helpers/checkType'
 
 ```js
 import { initializeApp } from 'firebase/app'
-const firebaseApp = initializeApp({
+import { getFirestore } from 'firebase/firestore'
+import { easyConnect } from '@firebaseasy/firestore'
+
+const app = initializeApp({
   apiKey: '### FIREBASE API KEY ###',
   authDomain: '### FIREBASE AUTH DOMAIN ###',
   projectId: '### CLOUD FIRESTORE PROJECT ID ###'
 })
 
-// or
+export const firestore = getFirestore(app)
 
-const admin = require('firebase-admin')
-const serviceAccount = require('path/to/serviceAccountKey.json')
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-})
+export const userEasy = easyConnect(firestore, 'User')
+// userEasy.set({name: 'naruto'})
+// userEasy.sbscribe()
+// userEasy.unsbscribe()
 ```
 
 # 機能
@@ -65,20 +67,23 @@ admin.initializeApp({
 登録と更新ができます。 doc に `id` を追加すると、ドキュメント ID の指定・id が一致したドキュメントの更新を行えます。
 
 ```js
+import { firestore } from 'initfirebase'
+import { easySetDoc } from '@firebaseasy/firestore'
+
 // create
-easySetDoc('anime', {
+easySetDoc(firestore, 'anime', {
   title: 'NARUTO',
   character: ['Naruto', 'Sasuke', 'Sakura']
 })
 
 // update or create(add)
-easySetDoc('anime/abcde/animeDetail', {
+easySetDoc(firestore, 'anime/abcde/animeDetail', {
   title: 'NARUTO',
   character: ['Naruto', 'Sasuke', 'Sakura'],
   id: 'fghijklmno'
 })
 // ↑ same ↓
-easySetDoc('anime/abcde/animeDetail/fghijklmno', {
+easySetDoc(firestore, 'anime/abcde/animeDetail/fghijklmno', {
   title: 'NARUTO',
   character: ['Naruto', 'Sasuke', 'Sakura'],
 })
@@ -88,7 +93,7 @@ easySetDoc('anime/abcde/animeDetail/fghijklmno', {
  * pathとidが一致しなかった場合エラーを返します
  * Error!
  */
-easySetDoc('anime/abcdefghijklmnopqrstuvwxyz', {
+easySetDoc(firestore, 'anime/abcdefghijklmnopqrstuvwxyz', {
   id: 'zyxwvutsrqponmlkjihgfedcba'
   title: 'NARUTO',
   character: ['Naruto', 'Sasuke', 'Sakura']
@@ -98,9 +103,11 @@ easySetDoc('anime/abcdefghijklmnopqrstuvwxyz', {
 情報の取得ができます。
 
 ```js
+import { firestore } from 'initfirebase'
+
 // get Collection data as an Array
 /** @return {array<T>} */
-easyGetData('anime', {
+easyGetData(firestore, 'anime', {
   where: [['title', '==', 'NARUTO'], ['character', 'array-contains', 'Sasuke']],
   orderBy: ['created_at']
   limit: 99,
@@ -108,30 +115,33 @@ easyGetData('anime', {
 
 // get document data as an Object
 /** @return {Objrct | undefined} */
-easyGetData('anime/abcdefghijklmnopqrstuvwxyz')
+easyGetData(firestore, 'anime/abcdefghijklmnopqrstuvwxyz')
 
 /** @return {Promise<T[] | T | undefined>} */
-easyGetData('anime/abcdefghijklmnopqrstuvwxyz')
+easyGetData(firestore, 'anime/abcdefghijklmnopqrstuvwxyz')
 
 /** @return {Promise<T | undefined>} */
-easyGetDoc('anime/abcdefg')
+easyGetDoc(firestore, 'anime/abcdefg')
 
 /** @return {Promise<T[]>} */
-easyGetDocs('anime')
+easyGetDocs(firestore, 'anime')
 ```
 
 情報の削除
 
 ```js
+import { firestore } from 'initfirebase'
+
 // delete document
-easyDelDoc('anime/abcdefghijklmnopqrstuvwxyz')
+easyDelDoc(firestore, 'anime/abcdefghijklmnopqrstuvwxyz')
 ```
 
 use easyConnect Sample Code
 
 ```js
 import { easyConnect } from '@firebaseasy/firestore'
-export const showUserData = easyConnect('D_ShowUser')
+import { firestore } from 'initfirebase'
+export const showUserData = easyConnect(firestore, 'D_ShowUser')
 // export const showUserData = easyConnect('D_ShowUser/xxxxxxxxxx')
 
 // ↓different file↓
@@ -146,6 +156,7 @@ Vuex Sample Code
 ```js
 import { easyConnect } from '@firebaseasy/firestore'
 import { CollectionReference } from 'firebase/firestore'
+import { firestore } from 'initfirebase'
 
 const collectionName = 'ShowUser'
 
@@ -171,8 +182,7 @@ export default {
 
   actions: {
     async getDocs ({ dispatch, rootState, state, commit }: any): Promise<void> {
-      const ref = createRef(collectionName) as CollectionReference
-      easyConnect(ref, collectionName, snapshot => {
+      easyConnect(firestore, collectionName).subscribe(snapshot => {
         commit('initData', snapshot)
       })
     }

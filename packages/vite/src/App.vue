@@ -3,13 +3,15 @@ import HelloWorld from './components/HelloWorld.vue'
 import { ref, computed, watch } from 'vue'
 import { dbTest } from './firebase'
 
-dbTest.run()
-
 const showUserArray = computed(() => {
   // return Array.from(dbTest.data.values())
   // return [...dbTest.data.values()]
   return dbTest.arr
 })
+
+const funhi = () => {
+  dbTest.sbscribe()
+}
 
 const funbey = () => {
   dbTest.unsbscribe()
@@ -19,8 +21,9 @@ const funbey = () => {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <button type="button" @click="funhi">sbscribeクリック</button>
+  <button type="button" @click="funbey">unsbscribeクリック</button>
 
-  <div @click="funbey">unsbscribeクリック</div>
   <pre>{{ showUserArray }}</pre>
 </template>
 

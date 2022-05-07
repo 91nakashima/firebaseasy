@@ -1,5 +1,5 @@
 import { deleteDoc } from 'firebase/firestore'
-import { DocumentReference } from 'firebase/firestore'
+import { Firestore, DocumentReference } from 'firebase/firestore'
 
 import { createRef } from './createReference'
 
@@ -7,8 +7,11 @@ import { createRef } from './createReference'
  * delete Doc
  * @params 'cities/LA'
  */
-export async function easyDelDoc (path: string): Promise<string> {
-  let reference = createRef(path)
+export async function easyDelDoc (
+  db: Firestore,
+  path: string
+): Promise<string> {
+  let reference = createRef(db, path)
 
   return new Promise((resolve, reject): void => {
     /**
@@ -20,7 +23,7 @@ export async function easyDelDoc (path: string): Promise<string> {
 
     deleteDoc(reference)
       .then(() => {
-        console.log(console.log('\u001b[32measyDelDoc\n' + path))
+        console.log('\u001b[32measyDelDoc\n' + path)
         resolve('ok')
       })
       .catch(() => reject())

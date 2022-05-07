@@ -1,14 +1,11 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-  addDoc,
-  updateDoc,
-  getFirestore
-} from 'firebase/firestore'
+import { doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore'
 import { collection } from 'firebase/firestore'
 
-import { CollectionReference, DocumentReference } from 'firebase/firestore'
+import {
+  Firestore,
+  CollectionReference,
+  DocumentReference
+} from 'firebase/firestore'
 import { createPath } from '../common'
 import { EasySetDoc } from '../types/EasySetDoc'
 
@@ -27,15 +24,19 @@ export const createShowPath = (path: string, id: string) => {
  * set doc
  */
 export async function easySetDoc<T> (
+  db: Firestore,
   collectionPath: string,
-  data: T & EasySetDoc
+  data: T
 ): Promise<string> {
+  const willSetData = (data as unknown) as EasySetDoc
+
   const collectionArray = collectionPath.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
 
   let reference: CollectionReference | DocumentReference | null = null
 
-  const db = getFirestore()
+  // const db: Firestore = getFirestore()
+
   const dataNum = collectionArray.length
 
   if (dataNum === 1 || dataNum % 2 === 1) {
@@ -43,24 +44,24 @@ export async function easySetDoc<T> (
     reference = collection(db, collectionPath)
 
     // document
-    if (data.id) {
-      reference = doc(db, createPath(collectionPath, data.id))
+    if (willSetData.id) {
+      reference = doc(db, createPath(collectionPath, willSetData.id))
     }
   } else if (dataNum % 2 === 0) {
     // document
-    if (data.id && collectionArray[dataNum - 1] !== data.id) {
+    if (willSetData.id && collectionArray[dataNum - 1] !== willSetData.id) {
       throw new Error()
     }
 
-    if (!data.id) {
-      data.id = collectionArray[dataNum - 1]
+    if (!willSetData.id) {
+      willSetData.id = collectionArray[dataNum - 1]
     }
 
     reference = doc(db, collectionPath)
   }
 
   // idがある場合
-  if (data.id) {
+  if (willSetData.id) {
     if (!(reference instanceof DocumentReference)) throw new Error()
 
     const getData = await getDoc(reference)
@@ -70,41 +71,41 @@ export async function easySetDoc<T> (
        * 情報がある場合(updata)
        * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#update-data
        */
-      data.updated_at = new Date()
-      await updateDoc(reference, data as any)
+      willSetData.updated_at = new Date()
+      await updateDoc(reference, willSetData as any)
     } else {
       /**
        * 情報がない場合(create)
        * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#set_a_document
        */
-      data.created_at = new Date()
-      await setDoc(reference, data)
+      willSetData.created_at = new Date()
+      await setDoc(reference, willSetData)
     }
 
     console.log(
-      '\u001b[32measySetDoc-> ' + createShowPath(collectionPath, data.id)
+      '\u001b[32measySetDoc-> ' + createShowPath(collectionPath, willSetData.id)
     )
-    console.log(JSON.parse(JSON.stringify(data)))
-    return data.id
+    console.log(JSON.parse(JSON.stringify(willSetData)))
+    return willSetData.id
   }
 
   // idがない場合(create)
   if (!(reference instanceof CollectionReference)) throw new Error()
 
-  data.created_at = new Date()
+  willSetData.created_at = new Date()
 
   /**
    * addDocならidを取得できる
    * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#add_a_document
    */
-  const newDoc = await addDoc(reference, data)
+  const newDoc = await addDoc(reference, willSetData)
   const getPath = createPath(collectionPath, newDoc.id)
 
   await updateDoc(doc(db, getPath), { id: newDoc.id })
 
-  if (!data.id) data.id = newDoc.id
+  if (!willSetData.id) willSetData.id = newDoc.id
 
   console.log('\u001b[32measySetDoc-> ' + getPath)
-  console.log(JSON.parse(JSON.stringify(data)))
+  console.log(JSON.parse(JSON.stringify(willSetData)))
   return newDoc.id
 }

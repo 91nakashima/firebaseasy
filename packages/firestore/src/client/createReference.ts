@@ -1,6 +1,7 @@
 import { doc, collection, getFirestore } from 'firebase/firestore'
 import { query, where, orderBy, limit } from 'firebase/firestore'
 
+import { Firestore } from 'firebase/firestore'
 import { CollectionReference, DocumentReference } from 'firebase/firestore'
 import { Query } from 'firebase/firestore'
 import { QueryOption, WhereOption } from './index'
@@ -11,6 +12,7 @@ import { isTypeCollectionOrQuery } from './helpers/checkType'
  * Create Reference
  */
 export const createRef = (
+  db: Firestore,
   path: string,
   option?: QueryOption
 ): Query | CollectionReference | DocumentReference => {
@@ -19,7 +21,7 @@ export const createRef = (
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
-  const db = getFirestore()
+  // const db: Firestore = getFirestore()
   const dataNum = collectionArray.length
 
   if (dataNum === 1 || dataNum % 2 === 1) {

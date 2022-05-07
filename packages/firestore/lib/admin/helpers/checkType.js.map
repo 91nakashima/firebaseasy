@@ -1,1 +1,0 @@
-{"version":3,"file":"checkType.js","sourceRoot":"","sources":["../../../src/admin/helpers/checkType.ts"],"names":[],"mappings":";;;AAAA,wDAAqE;AAErE;;GAEG;AACI,MAAM,uBAAuB,GAAG,CACrC,CAAM,EAC4B,EAAE;IACpC,IAAI,CAAC,YAAY,+BAAmB;QAAE,OAAO,IAAI,CAAA;IACjD,IAAI,CAAC,YAAY,iBAAK;QAAE,OAAO,IAAI,CAAA;IACnC,OAAO,KAAK,CAAA;AACd,CAAC,CAAA;AANY,QAAA,uBAAuB,2BAMnC"}

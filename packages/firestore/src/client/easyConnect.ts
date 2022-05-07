@@ -1,33 +1,51 @@
 import { onSnapshot } from 'firebase/firestore'
 import { createRef } from '.'
 import { easyUnConnect } from './easyUnConnect'
+import { easySetDoc } from './easySetDoc'
 import { state, createState } from './data'
+import { randamString } from '../common'
 
 import { QueryOption } from '.'
 import { DocumentReference } from 'firebase/firestore'
+import { Firestore } from 'firebase/firestore'
+
+/**
+ * idを持っているかどうか
+ */
+const isHaveId = (d: any): d is { id: string } => {
+  return !!d?.id
+}
 
 /**
  * Firestore Real Time synchronization
  */
 export const easyConnect = <T>(
+  db: Firestore,
   path: string,
   option?: QueryOption
 ): {
   data: Map<string, T>
   arr: T[]
-  run: (fun?: ((e: Map<string, T>) => void) | undefined) => void
+  set: (data: T) => Promise<string>
+  sbscribe: (
+    suboption?: QueryOption,
+    fun?: ((e: Map<string, T>) => void) | undefined
+  ) => void
   unsbscribe: Function
 } => {
-  const reference = createRef(path, option)
-
   // stateを作成
+  // ここが少し甘い
   createState(path)
 
   /**
-   *
+   * sync
    */
-  const run = (fun?: (e: Map<string, T>) => void) => {
+  const sbscribe = (
+    suboption?: QueryOption,
+    fun?: (e: Map<string, T>) => void
+  ) => {
     // refarenceを作成
+    const reference = createRef(db, path, suboption ?? option)
 
     // DocumentReference<DocumentData>
     if (reference instanceof DocumentReference) {
@@ -62,18 +80,41 @@ export const easyConnect = <T>(
         fun(state[path]?.data)
       })
     }
+
+    console.log('\u001b[32measyConnect-> ' + path)
   }
 
-  console.log('\u001b[32measyConnect-> ' + path)
+  /**
+   * create or update
+   */
+  const set = async (data: T): Promise<string> => {
+    if (typeof data !== 'object') {
+      throw new Error('only object')
+    }
+
+    // if (isHaveId(data)) {
+    //   state[path]?.data.set(data.id, data)
+    //   return await easySetDoc(db, path, data)
+    // } else {
+    //   const createId = randamString()
+    //   const setData = { ...{ id: createId }, ...data }
+    //   state[path]?.data.set(createId, setData)
+    //   return await easySetDoc(db, path, setData)
+    // }
+
+    return await easySetDoc(db, path, data)
+  }
 
   return {
     data: state[path].data,
     arr: (new Proxy(state[path].data, {
       get: () => {
+        if (!state[path].data) return []
         return Array.from(state[path].data.values())
       }
     }) as unknown) as T[],
-    run: run,
+    set: set,
+    sbscribe: sbscribe,
     unsbscribe: () => easyUnConnect(path)
   }
 }
