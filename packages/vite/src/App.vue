@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import CountBtn from './components/CountBtn/CountBtn.vue'
+import SelfCountBtn from './components/SelfCountBtn/SelfCountBtn.vue'
 import { ref, computed, watch } from 'vue'
 import { dbTest } from './firebase'
 
 const showUserArray = computed(() => {
   // return Array.from(dbTest.data.values())
-  // return [...dbTest.data.values()]
-  return dbTest.arr
+  return [...dbTest.data.values()]
+  // return dbTest.arr
 })
 
 const funhi = () => {
@@ -23,6 +25,20 @@ const funbey = () => {
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
   <button type="button" @click="funhi">sbscribeクリック</button>
   <button type="button" @click="funbey">unsbscribeクリック</button>
+
+  <div>
+    <CountBtn />
+    <CountBtn />
+    <CountBtn />
+    <CountBtn />
+  </div>
+
+  <div>
+    <SelfCountBtn />
+    <SelfCountBtn />
+    <SelfCountBtn />
+    <SelfCountBtn />
+  </div>
 
   <pre>{{ showUserArray }}</pre>
 </template>

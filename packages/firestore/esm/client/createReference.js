@@ -10,7 +10,6 @@ export var createRef = function (db, path, option) {
     if (!collectionArray.length)
         throw new Error();
     var reference = null;
-    // const db: Firestore = getFirestore()
     var dataNum = collectionArray.length;
     if (dataNum === 1 || dataNum % 2 === 1) {
         // collection

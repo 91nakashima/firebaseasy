@@ -21,7 +21,6 @@ export const createRef = (
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
-  // const db: Firestore = getFirestore()
   const dataNum = collectionArray.length
 
   if (dataNum === 1 || dataNum % 2 === 1) {
