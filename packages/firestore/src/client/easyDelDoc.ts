@@ -23,7 +23,7 @@ export async function easyDelDoc (
 
     deleteDoc(reference)
       .then(() => {
-        console.log('\u001b[32measyDelDoc\n' + path)
+        console.log('\u001b[32measyDelDoc -> ' + path)
         resolve('ok')
       })
       .catch(() => reject())

@@ -22,7 +22,7 @@ export function easyDelDoc(db, path) {
                         return reject();
                     deleteDoc(reference)
                         .then(function () {
-                        console.log('\u001b[32measyDelDoc\n' + path);
+                        console.log('\u001b[32measyDelDoc -> ' + path);
                         resolve('ok');
                     })
                         .catch(function () { return reject(); });

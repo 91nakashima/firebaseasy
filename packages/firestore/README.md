@@ -52,15 +52,6 @@ export const userEasy = easyConnect(firestore, 'User')
 // set
 {
   id: string // document id
-  created_at: Date
-  updated_at?: Date // If it was an update
-}
-
-// get(Not prepared)
-{
-  id: string // document id
-  created_at: Timestamp
-  updated_at?: Timestamp
 }
 ```
 

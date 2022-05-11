@@ -1,13 +1,9 @@
-import { doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore'
+import { doc, writeBatch } from 'firebase/firestore'
 import { collection } from 'firebase/firestore'
+import { createPath, randamString } from '../common'
 
-import {
-  Firestore,
-  CollectionReference,
-  DocumentReference
-} from 'firebase/firestore'
-import { createPath } from '../common'
-import { EasySetDoc } from '../types/EasySetDoc'
+import { Firestore } from 'firebase/firestore'
+import { CollectionReference, DocumentReference } from 'firebase/firestore'
 
 /**
  * コンソール表示用
@@ -21,6 +17,13 @@ export const createShowPath = (path: string, id: string) => {
 }
 
 /**
+ * idを持っているかを判断する
+ */
+export const isHaveId = (d: any): d is { id: string } => {
+  return !!d?.id
+}
+
+/**
  * set doc
  */
 export async function easySetDoc<T> (
@@ -28,14 +31,12 @@ export async function easySetDoc<T> (
   collectionPath: string,
   data: T
 ): Promise<string> {
-  const willSetData = (data as unknown) as EasySetDoc
+  const refWriteBatch = writeBatch(db)
 
   const collectionArray = collectionPath.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
 
   let reference: CollectionReference | DocumentReference | null = null
-
-  // const db: Firestore = getFirestore()
 
   const dataNum = collectionArray.length
 
@@ -44,68 +45,47 @@ export async function easySetDoc<T> (
     reference = collection(db, collectionPath)
 
     // document
-    if (willSetData.id) {
-      reference = doc(db, createPath(collectionPath, willSetData.id))
+    if (isHaveId(data)) {
+      reference = doc(db, createPath(collectionPath, data.id))
     }
   } else if (dataNum % 2 === 0) {
     // document
-    if (willSetData.id && collectionArray[dataNum - 1] !== willSetData.id) {
+    if (isHaveId(data) && collectionArray[dataNum - 1] !== data.id) {
       throw new Error()
     }
 
-    if (!willSetData.id) {
-      willSetData.id = collectionArray[dataNum - 1]
+    if (!isHaveId(data)) {
+      data = { ...data, ...{ id: collectionArray[dataNum - 1] } }
     }
 
     reference = doc(db, collectionPath)
   }
 
   // idがある場合
-  if (willSetData.id) {
+  if (isHaveId(data)) {
     if (!(reference instanceof DocumentReference)) throw new Error()
 
-    const getData = await getDoc(reference)
-
-    if (getData.data()) {
-      /**
-       * 情報がある場合(updata)
-       * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#update-data
-       */
-      willSetData.updated_at = new Date()
-      await updateDoc(reference, willSetData as any)
-    } else {
-      /**
-       * 情報がない場合(create)
-       * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#set_a_document
-       */
-      willSetData.created_at = new Date()
-      await setDoc(reference, willSetData)
-    }
+    refWriteBatch.set(reference, data).commit()
 
     console.log(
-      '\u001b[32measySetDoc-> ' + createShowPath(collectionPath, willSetData.id)
+      '\u001b[32measySetDoc -> ' + createShowPath(collectionPath, data.id)
     )
-    console.log(JSON.parse(JSON.stringify(willSetData)))
-    return willSetData.id
+
+    return data.id
   }
 
   // idがない場合(create)
   if (!(reference instanceof CollectionReference)) throw new Error()
 
-  willSetData.created_at = new Date()
+  if (!isHaveId(data)) data = { ...data, ...{ id: randamString() } }
+  if (!isHaveId(data)) throw new Error()
 
-  /**
-   * addDocならidを取得できる
-   * https://firebase.google.com/docs/firestore/manage-data/add-data?hl=ja#add_a_document
-   */
-  const newDoc = await addDoc(reference, willSetData)
-  const getPath = createPath(collectionPath, newDoc.id)
+  const docPath: string = createPath(collectionPath, data.id)
+  const docref = doc(db, docPath)
 
-  await updateDoc(doc(db, getPath), { id: newDoc.id })
+  await refWriteBatch.set(docref, data).commit()
 
-  if (!willSetData.id) willSetData.id = newDoc.id
+  console.log('\u001b[32measySetDoc -> ' + docPath)
 
-  console.log('\u001b[32measySetDoc-> ' + getPath)
-  console.log(JSON.parse(JSON.stringify(willSetData)))
-  return newDoc.id
+  return data.id
 }
