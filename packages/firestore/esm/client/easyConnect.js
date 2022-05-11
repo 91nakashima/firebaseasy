@@ -21,9 +21,10 @@ export var easyConnect = function (db, path, option) {
     /**
      * sync
      */
-    var sbscribe = function (suboption, fun) {
+    var sbscribe = function (fun) {
+        console.log(typeof option === 'function' ? option() : option);
         // refarenceを作成
-        var reference = createRef(db, path, suboption !== null && suboption !== void 0 ? suboption : option);
+        var reference = createRef(db, path, typeof option === 'function' ? option() : option);
         // DocumentReference<DocumentData>
         if (reference instanceof DocumentReference) {
             state[path].subscribe = onSnapshot(reference, function (doc) {

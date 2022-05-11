@@ -16,21 +16,20 @@ const isHaveId = (d: any): d is { id: string } => {
   return !!d?.id
 }
 
+type OptionFun = () => QueryOption
+
 /**
  * Firestore Real Time synchronization
  */
 export const easyConnect = <T>(
   db: Firestore,
   path: string,
-  option?: QueryOption
+  option?: QueryOption | OptionFun
 ): {
   data: Map<string, T>
   arr: T[]
   set: (data: T) => Promise<string>
-  sbscribe: (
-    suboption?: QueryOption,
-    fun?: ((e: Map<string, T>) => void) | undefined
-  ) => void
+  sbscribe: (fun?: ((e: Map<string, T>) => void) | undefined) => void
   unsbscribe: Function
 } => {
   // stateを作成
@@ -40,12 +39,14 @@ export const easyConnect = <T>(
   /**
    * sync
    */
-  const sbscribe = (
-    suboption?: QueryOption,
-    fun?: (e: Map<string, T>) => void
-  ) => {
+  const sbscribe = (fun?: (e: Map<string, T>) => void) => {
+    console.log(typeof option === 'function' ? option() : option)
     // refarenceを作成
-    const reference = createRef(db, path, suboption ?? option)
+    const reference = createRef(
+      db,
+      path,
+      typeof option === 'function' ? option() : option
+    )
 
     // DocumentReference<DocumentData>
     if (reference instanceof DocumentReference) {

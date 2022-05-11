@@ -1,7 +1,12 @@
 import { easyConnect } from '@firebaseasy/firestore'
-import { firestore } from './init'
+import { firestore, auth } from './init'
 
 export const dbTest = easyConnect<{ id: string; text: string }>(
   firestore,
-  'Test'
+  'Test',
+  () => {
+    return {
+      where: [['id', '==', auth.currentUser?.uid ?? '']]
+    }
+  }
 )

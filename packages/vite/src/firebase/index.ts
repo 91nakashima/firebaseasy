@@ -1,2 +1,2 @@
-export { app, firestore } from './init'
+export * from './init'
 export { dbTest } from './connectiondb'

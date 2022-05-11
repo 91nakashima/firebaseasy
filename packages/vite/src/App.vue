@@ -4,8 +4,9 @@ import CountBtn from './components/CountBtn/CountBtn.vue'
 import SelfCountBtn from './components/SelfCountBtn/SelfCountBtn.vue'
 import { ref, computed, watch } from 'vue'
 import { dbTest } from './firebase'
-import { firestore } from './firebase'
+import { firestore, auth } from './firebase'
 import { easySetDoc, easyDelDoc } from '@firebaseasy/firestore'
+import { signOut, signInWithEmailAndPassword } from 'firebase/auth'
 
 const showUserArray = computed(() => {
   // return Array.from(dbTest.data.values())
@@ -28,6 +29,12 @@ const funSet = () => {
   // })
   easyDelDoc(firestore, 'Test/huga')
 }
+
+const funlogin = () => {
+  signInWithEmailAndPassword(auth, '', '').then(d => {
+    console.log(d)
+  })
+}
 </script>
 
 <template>
@@ -38,20 +45,10 @@ const funSet = () => {
   <button type="button" @click="funbey">unsbscribeクリック</button>
   <div></div>
   <button type="button" @click="funSet()">登録テスト</button>
-
-  <div>
-    <CountBtn />
-    <CountBtn />
-    <CountBtn />
-    <CountBtn />
-  </div>
-
-  <div>
-    <SelfCountBtn />
-    <SelfCountBtn />
-    <SelfCountBtn />
-    <SelfCountBtn />
-  </div>
+  <div></div>
+  <button type="button" @click="funlogin">ログイン</button>
+  <div></div>
+  <button type="button" @click="signOut(auth)">ログアウト</button>
 
   <pre>{{ showUserArray }}</pre>
 </template>
