@@ -1,6 +1,6 @@
-import { getStorage, ref } from 'firebase/storage'
+import { ref } from 'firebase/storage'
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { TaskState } from 'firebase/storage'
+import { FirebaseStorage, TaskState } from 'firebase/storage'
 
 /**
  * create random name
@@ -28,6 +28,7 @@ export function randomName (len = 20, file?: File) {
  * upload file
  */
 export async function easyUpload (
+  storage: FirebaseStorage,
   path: string,
   data:
     | File
@@ -36,7 +37,6 @@ export async function easyUpload (
     | [Uint8Array | Blob | File, { contentType: string }],
   fun?: (progress: number, status: TaskState) => string
 ): Promise<string> {
-  const storage = getStorage()
   const storageRef = ref(storage, path)
 
   const uploadTask = Array.isArray(data)

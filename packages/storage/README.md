@@ -27,22 +27,25 @@ const firebaseConfig = {
   databaseURL: '<your-database-url>',
   storageBucket: '<your-storage-bucket-url>'
 }
-const firebaseApp = initializeApp(firebaseConfig)
+export const app = initializeApp(firebaseConfig)
+export const storage = getStorage(app)
 ```
 
 # 機能
 
 ```js
 import { easyUpload, randomName } from '@firebaseasy/storage'
+import { storage } from './initfirebase'
 
 const createPath = randomName(10, getFile)
 // jdnajt93nd.jpg
-const getURL = await easyUpload(`test/${createPath}`, file)
+const getURL = await easyUpload(storage, `test/${createPath}`, file)
 console.log(getURL)
 // https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa
 
 // progress
 const getURL = await easyUpload(
+  storage,
   `test/${createPath}`,
   file,
   (progress, status) => {
@@ -57,18 +60,19 @@ const getURL = await easyUpload(
 const metadata = {
   contentType: 'image/jpeg'
 }
-const res = await easyUpload('img/car.jpeg', [buffer, metadata])
+const res = await easyUpload(storage, 'img/car.jpeg', [buffer, metadata])
 ```
 
 ```js
 import { easyDelObject } from '@firebaseasy/storage'
+import { storage } from './initfirebase'
 
-easyDelObject('https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa').then(
+easyDelObject(storage, 'https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa').then(
   d => console.log(d)
   // success
 )
 
-easyDelObject('image/jdnajt93nd.jpg').then(
+easyDelObject(storage, 'image/jdnajt93nd.jpg').then(
   d => console.log(d)
   // success
 )

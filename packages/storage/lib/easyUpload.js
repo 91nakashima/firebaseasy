@@ -1,5 +1,5 @@
 import { __awaiter, __generator } from "tslib";
-import { getStorage, ref } from 'firebase/storage';
+import { ref } from 'firebase/storage';
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 /**
  * create random name
@@ -24,11 +24,10 @@ export function randomName(len, file) {
 /**
  * upload file
  */
-export function easyUpload(path, data, fun) {
+export function easyUpload(storage, path, data, fun) {
     return __awaiter(this, void 0, void 0, function () {
-        var storage, storageRef, uploadTask;
+        var storageRef, uploadTask;
         return __generator(this, function (_a) {
-            storage = getStorage();
             storageRef = ref(storage, path);
             uploadTask = Array.isArray(data)
                 ? uploadBytesResumable(storageRef, data[0], data[1])

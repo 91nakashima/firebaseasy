@@ -27,7 +27,6 @@ export const easyConnect = <T>(
   option?: QueryOption | OptionFun
 ): {
   data: Map<string, T>
-  arr: T[]
   set: (data: T) => Promise<string>
   sbscribe: (fun?: ((e: Map<string, T>) => void) | undefined) => void
   unsbscribe: Function
@@ -39,7 +38,7 @@ export const easyConnect = <T>(
   /**
    * sync
    */
-  const sbscribe = (fun?: (e: Map<string, T>) => void) => {
+  const sbscribe = async (fun?: (e: Map<string, T>) => void) => {
     console.log(typeof option === 'function' ? option() : option)
     // refarenceを作成
     const reference = createRef(
@@ -108,12 +107,6 @@ export const easyConnect = <T>(
 
   return {
     data: state[path].data,
-    arr: (new Proxy(state[path].data, {
-      get: () => {
-        if (!state[path].data) return []
-        return Array.from(state[path].data.values())
-      }
-    }) as unknown) as T[],
     set: set,
     sbscribe: sbscribe,
     unsbscribe: () => easyUnConnect(path)
