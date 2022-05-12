@@ -39,7 +39,6 @@ export const easyConnect = <T>(
    * sync
    */
   const sbscribe = async (fun?: (e: Map<string, T>) => void) => {
-    console.log(typeof option === 'function' ? option() : option)
     // refarenceを作成
     const reference = createRef(
       db,
