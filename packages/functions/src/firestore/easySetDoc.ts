@@ -1,18 +1,23 @@
-import { firestore } from '../init'
 import { randamString } from '../common'
 
-import {
-  DocumentReference,
-  CollectionReference
-} from 'firebase-admin/firestore'
-import { EasySetDoc } from '../../types/EasySetDoc'
+import { Firestore } from 'firebase-admin/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
+import { CollectionReference } from 'firebase-admin/firestore'
+
+/**
+ * idを持っているかを判断する
+ */
+export const isHaveId = (d: any): d is { id: string } => {
+  return !!d?.id
+}
 
 /**
  * set doc
  */
 export const easySetDoc = async <T>(
+  firestore: Firestore,
   path: string,
-  data: EasySetDoc & T
+  data: T
 ): Promise<string> => {
   const collectionArray = path.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
@@ -26,8 +31,11 @@ export const easySetDoc = async <T>(
     } else if (i % 2 === 1 && reference instanceof CollectionReference) {
       // 最後
       if (i === collectionArray.length - 1) {
-        if (!data.id) data.id = collectionArray[i] // 代入
-        if (collectionArray[i] !== data.id) throw new Error() // エラー
+        if (!isHaveId(data)) {
+          data = { ...data, ...{ id: collectionArray[i] } } // 代入
+        } else if (collectionArray[i] !== data.id) {
+          throw new Error() // エラー
+        }
       }
 
       // DocumentReference
@@ -36,9 +44,9 @@ export const easySetDoc = async <T>(
       // 最後
       if (i === collectionArray.length - 1) {
         // DocumentReference
-        if (collectionArray[i] !== data.id) throw new Error()
+        if (isHaveId(data) && collectionArray[i] !== data.id) throw new Error()
 
-        if (data.id && reference instanceof CollectionReference) {
+        if (isHaveId(data) && reference instanceof CollectionReference) {
           reference = reference.doc(data.id)
         }
       }
@@ -48,27 +56,10 @@ export const easySetDoc = async <T>(
     }
   }
 
-  // idがある場合
-  if (data.id && reference instanceof DocumentReference) {
-    const getData = await (reference as DocumentReference).get()
-
-    if (getData.data()) {
-      // 情報がある場合(updata)
-      data.updated_at = new Date()
-      await reference.update(data)
-    } else {
-      // 情報がない場合(create)
-      data.created_at = new Date()
-      await reference.set(data)
-    }
-
-    return data.id
-  }
-
   // idがない場合(create)
   const createId = randamString()
-  data.created_at = new Date()
-  data.id = createId
+
+  data = { ...data, ...{ id: createId } }
 
   if (!(reference instanceof CollectionReference)) throw new Error()
   await reference.doc(createId).set(data)

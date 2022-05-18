@@ -69,9 +69,9 @@ easySetDoc(firestore, 'anime', {
 
 // update or create(add)
 easySetDoc(firestore, 'anime/abcde/animeDetail', {
+  id: 'fghijklmno'
   title: 'NARUTO',
   character: ['Naruto', 'Sasuke', 'Sakura'],
-  id: 'fghijklmno'
 })
 // ↑ same ↓
 easySetDoc(firestore, 'anime/abcde/animeDetail/fghijklmno', {
@@ -79,16 +79,19 @@ easySetDoc(firestore, 'anime/abcde/animeDetail/fghijklmno', {
   character: ['Naruto', 'Sasuke', 'Sakura'],
 })
 
-/**
- * update or create(add)
- * pathとidが一致しなかった場合エラーを返します
- * Error!
- */
+// Error()
 easySetDoc(firestore, 'anime/abcdefghijklmnopqrstuvwxyz', {
   id: 'zyxwvutsrqponmlkjihgfedcba'
   title: 'NARUTO',
   character: ['Naruto', 'Sasuke', 'Sakura']
 })
+
+// If you only want to use a setDoc().
+easySetDoc(firestore, 'anime/abcdefghijklmnopqrstuvwxyz', {
+  id: 'zyxwvutsrqponmlkjihgfedcba'
+  title: 'NARUTO',
+  character: ['Naruto', 'Sasuke', 'Sakura']
+}, { marge: false })
 ```
 
 情報の取得ができます。

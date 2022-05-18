@@ -24,10 +24,15 @@ const funbey = () => {
 
 const funSet = () => {
   // dbTest.set({
-  //   id: '',
-  //   text: 'こんにち'
+  //   id: 'huga',
+  //   text: 'こんにち',
+  //   note: 'こん'
   // })
-  easyDelDoc(firestore, 'Test/huga')
+  easySetDoc(firestore, 'Test', {
+    id: 'huga',
+    note: 'こんにち'
+  })
+  // easyDelDoc(firestore, 'Test/huga')
 }
 
 const funlogin = () => {

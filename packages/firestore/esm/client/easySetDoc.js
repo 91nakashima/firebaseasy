@@ -1,5 +1,5 @@
 import { __assign, __awaiter, __generator } from "tslib";
-import { doc, writeBatch } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { collection } from 'firebase/firestore';
 import { createPath, randamString } from '../common';
 import { CollectionReference, DocumentReference } from 'firebase/firestore';
@@ -20,13 +20,13 @@ export var isHaveId = function (d) {
 /**
  * set doc
  */
-export function easySetDoc(db, collectionPath, data) {
+export function easySetDoc(db, collectionPath, data, setOptions) {
+    if (setOptions === void 0) { setOptions = { merge: true }; }
     return __awaiter(this, void 0, void 0, function () {
-        var refWriteBatch, collectionArray, reference, dataNum, docPath, docref;
+        var collectionArray, reference, dataNum, docPath, docref;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    refWriteBatch = writeBatch(db);
                     collectionArray = collectionPath.split('/').filter(function (d) { return d; });
                     if (!collectionArray.length)
                         throw new Error();
@@ -50,14 +50,15 @@ export function easySetDoc(db, collectionPath, data) {
                         }
                         reference = doc(db, collectionPath);
                     }
-                    // idがある場合
-                    if (isHaveId(data)) {
-                        if (!(reference instanceof DocumentReference))
-                            throw new Error();
-                        refWriteBatch.set(reference, data).commit();
-                        console.log('\u001b[32measySetDoc -> ' + createShowPath(collectionPath, data.id));
-                        return [2 /*return*/, data.id];
-                    }
+                    if (!isHaveId(data)) return [3 /*break*/, 2];
+                    if (!(reference instanceof DocumentReference))
+                        throw new Error();
+                    return [4 /*yield*/, setDoc(reference, data, setOptions)];
+                case 1:
+                    _a.sent();
+                    console.log('\u001b[32measySetDoc -> ' + createShowPath(collectionPath, data.id));
+                    return [2 /*return*/, data.id];
+                case 2:
                     // idがない場合(create)
                     if (!(reference instanceof CollectionReference))
                         throw new Error();
@@ -67,8 +68,8 @@ export function easySetDoc(db, collectionPath, data) {
                         throw new Error();
                     docPath = createPath(collectionPath, data.id);
                     docref = doc(db, docPath);
-                    return [4 /*yield*/, refWriteBatch.set(docref, data).commit()];
-                case 1:
+                    return [4 /*yield*/, setDoc(docref, data, setOptions)];
+                case 3:
                     _a.sent();
                     console.log('\u001b[32measySetDoc -> ' + docPath);
                     return [2 /*return*/, data.id];

@@ -1,4 +1,4 @@
-import { doc, collection, getFirestore } from 'firebase/firestore'
+import { doc, collection } from 'firebase/firestore'
 import { query, where, orderBy, limit } from 'firebase/firestore'
 
 import { Firestore } from 'firebase/firestore'

@@ -3,18 +3,10 @@ import { createRef } from '.'
 import { easyUnConnect } from './easyUnConnect'
 import { easySetDoc } from './easySetDoc'
 import { state, createState } from './data'
-import { randamString } from '../common'
 
 import { QueryOption } from '.'
 import { DocumentReference } from 'firebase/firestore'
-import { Firestore } from 'firebase/firestore'
-
-/**
- * idを持っているかどうか
- */
-const isHaveId = (d: any): d is { id: string } => {
-  return !!d?.id
-}
+import { Firestore, SetOptions } from 'firebase/firestore'
 
 type OptionFun = () => QueryOption
 
@@ -27,7 +19,7 @@ export const easyConnect = <T>(
   option?: QueryOption | OptionFun
 ): {
   data: Map<string, T>
-  set: (data: T) => Promise<string>
+  set: (data: T, setOptions?: SetOptions) => Promise<string>
   sbscribe: (fun?: ((e: Map<string, T>) => void) | undefined) => void
   unsbscribe: Function
 } => {
@@ -86,22 +78,12 @@ export const easyConnect = <T>(
   /**
    * create or update
    */
-  const set = async (data: T): Promise<string> => {
+  const set = async (data: T, setOptions?: SetOptions): Promise<string> => {
     if (typeof data !== 'object') {
       throw new Error('only object')
     }
 
-    // if (isHaveId(data)) {
-    //   state[path]?.data.set(data.id, data)
-    //   return await easySetDoc(db, path, data)
-    // } else {
-    //   const createId = randamString()
-    //   const setData = { ...{ id: createId }, ...data }
-    //   state[path]?.data.set(createId, setData)
-    //   return await easySetDoc(db, path, setData)
-    // }
-
-    return await easySetDoc(db, path, data)
+    return await easySetDoc(db, path, data, setOptions)
   }
 
   return {

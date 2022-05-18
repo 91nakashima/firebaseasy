@@ -6,12 +6,6 @@ import { easySetDoc } from './easySetDoc';
 import { state, createState } from './data';
 import { DocumentReference } from 'firebase/firestore';
 /**
- * idを持っているかどうか
- */
-var isHaveId = function (d) {
-    return !!(d === null || d === void 0 ? void 0 : d.id);
-};
-/**
  * Firestore Real Time synchronization
  */
 export var easyConnect = function (db, path, option) {
@@ -67,25 +61,15 @@ export var easyConnect = function (db, path, option) {
     /**
      * create or update
      */
-    var set = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    var set = function (data, setOptions) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     if (typeof data !== 'object') {
                         throw new Error('only object');
                     }
-                    return [4 /*yield*/, easySetDoc(db, path, data)];
-                case 1: 
-                // if (isHaveId(data)) {
-                //   state[path]?.data.set(data.id, data)
-                //   return await easySetDoc(db, path, data)
-                // } else {
-                //   const createId = randamString()
-                //   const setData = { ...{ id: createId }, ...data }
-                //   state[path]?.data.set(createId, setData)
-                //   return await easySetDoc(db, path, setData)
-                // }
-                return [2 /*return*/, _a.sent()];
+                    return [4 /*yield*/, easySetDoc(db, path, data, setOptions)];
+                case 1: return [2 /*return*/, _a.sent()];
             }
         });
     }); };

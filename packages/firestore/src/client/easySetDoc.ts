@@ -1,8 +1,8 @@
-import { doc, writeBatch } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { collection } from 'firebase/firestore'
 import { createPath, randamString } from '../common'
 
-import { Firestore } from 'firebase/firestore'
+import { Firestore, SetOptions } from 'firebase/firestore'
 import { CollectionReference, DocumentReference } from 'firebase/firestore'
 
 /**
@@ -29,10 +29,9 @@ export const isHaveId = (d: any): d is { id: string } => {
 export async function easySetDoc<T> (
   db: Firestore,
   collectionPath: string,
-  data: T
+  data: T,
+  setOptions: SetOptions = { merge: true }
 ): Promise<string> {
-  const refWriteBatch = writeBatch(db)
-
   const collectionArray = collectionPath.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
 
@@ -57,7 +56,6 @@ export async function easySetDoc<T> (
     if (!isHaveId(data)) {
       data = { ...data, ...{ id: collectionArray[dataNum - 1] } }
     }
-
     reference = doc(db, collectionPath)
   }
 
@@ -65,7 +63,7 @@ export async function easySetDoc<T> (
   if (isHaveId(data)) {
     if (!(reference instanceof DocumentReference)) throw new Error()
 
-    refWriteBatch.set(reference, data).commit()
+    await setDoc(reference, data, setOptions)
 
     console.log(
       '\u001b[32measySetDoc -> ' + createShowPath(collectionPath, data.id)
@@ -83,7 +81,7 @@ export async function easySetDoc<T> (
   const docPath: string = createPath(collectionPath, data.id)
   const docref = doc(db, docPath)
 
-  await refWriteBatch.set(docref, data).commit()
+  await setDoc(docref, data, setOptions)
 
   console.log('\u001b[32measySetDoc -> ' + docPath)
 

@@ -1,4 +1,4 @@
-import { Firestore } from 'firebase/firestore';
+import { Firestore, SetOptions } from 'firebase/firestore';
 /**
  * コンソール表示用
  */
@@ -12,4 +12,4 @@ export declare const isHaveId: (d: any) => d is {
 /**
  * set doc
  */
-export declare function easySetDoc<T>(db: Firestore, collectionPath: string, data: T): Promise<string>;
+export declare function easySetDoc<T>(db: Firestore, collectionPath: string, data: T, setOptions?: SetOptions): Promise<string>;
