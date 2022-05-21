@@ -7,7 +7,7 @@ export var easyUnConnect = function (path) {
         return;
     var unsbscribe = state[path].subscribe;
     unsbscribe();
-    state[path].data = new Map();
+    state[path].data.clear();
     state[path].subscribe = null;
     console.log("easyUnConnect-> ".concat(path));
 };

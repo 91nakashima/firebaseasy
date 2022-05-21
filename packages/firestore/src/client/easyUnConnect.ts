@@ -11,7 +11,7 @@ export const easyUnConnect = (path: string) => {
   const unsbscribe = state[path].subscribe as Unsubscribe
   unsbscribe()
 
-  state[path].data = new Map()
+  state[path].data.clear()
   state[path].subscribe = null
 
   console.log(`easyUnConnect-> ${path}`)
