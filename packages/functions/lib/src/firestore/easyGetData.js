@@ -1,31 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easyGetDocs = exports.easyGetDoc = exports.easyGetData = void 0;
-const init_1 = require("../init");
 const firestore_1 = require("firebase-admin/firestore");
+const firestore_2 = require("firebase-admin/firestore");
 /**
  * check type
  */
 const isUseType = (r) => {
-    if (r instanceof firestore_1.CollectionReference)
+    if (r instanceof firestore_2.CollectionReference)
         return true;
-    if (r instanceof firestore_1.Query)
+    if (r instanceof firestore_2.Query)
         return true;
     return false;
 };
 /**
  * get Doc or Collection Data
+ * @returns Array | Object | undefind
  */
-async function easyGetData(data, option = {}) {
+async function easyGetData(firestore, data, option = {}) {
     const collectionArray = data.split('/').filter(d => d);
     if (!collectionArray.length)
         throw new Error();
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
-            reference = init_1.firestore.collection(collectionArray[i]);
+            reference = firestore.collection(collectionArray[i]);
         }
-        else if (i % 2 === 1 && reference instanceof firestore_1.CollectionReference) {
+        else if (i % 2 === 1 && reference instanceof firestore_2.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
         }
         else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
@@ -99,17 +100,18 @@ async function easyGetData(data, option = {}) {
 exports.easyGetData = easyGetData;
 /**
  * get Doc Data
+ * @returns Object | undefind
  */
-async function easyGetDoc(data, option = {}) {
+async function easyGetDoc(firestore, data) {
     const collectionArray = data.split('/').filter(d => d);
     if (!collectionArray.length)
         throw new Error();
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
-            reference = init_1.firestore.collection(collectionArray[i]);
+            reference = firestore.collection(collectionArray[i]);
         }
-        else if (i % 2 === 1 && reference instanceof firestore_1.CollectionReference) {
+        else if (i % 2 === 1 && reference instanceof firestore_2.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
         }
         else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
@@ -137,17 +139,18 @@ async function easyGetDoc(data, option = {}) {
 exports.easyGetDoc = easyGetDoc;
 /**
  * get Collection Data
+ * @returns Array
  */
-async function easyGetDocs(data, option = {}) {
+async function easyGetDocs(firestore, data, option = {}) {
     const collectionArray = data.split('/').filter(d => d);
     if (!collectionArray.length)
         throw new Error();
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
-            reference = init_1.firestore.collection(collectionArray[i]);
+            reference = firestore.collection(collectionArray[i]);
         }
-        else if (i % 2 === 1 && reference instanceof firestore_1.CollectionReference) {
+        else if (i % 2 === 1 && reference instanceof firestore_2.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
         }
         else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
@@ -157,7 +160,7 @@ async function easyGetDocs(data, option = {}) {
     /**
      * CollectionReference以外はエラー
      */
-    if (!(reference instanceof firestore_1.CollectionReference))
+    if (!(reference instanceof firestore_2.CollectionReference))
         throw new Error();
     /**
      * document

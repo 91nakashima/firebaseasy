@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easyDelObject = void 0;
-const init_1 = require("../init");
 /**
  * Delete File from URL or Bath
+ * @returns Promise<'success'>
  */
-const easyDelObject = async (path) => {
+const easyDelObject = async (storage, path) => {
     var _a;
     /** urlの場合にbucketを取得 */
     let buketURL = '';
@@ -15,7 +15,7 @@ const easyDelObject = async (path) => {
         path = decodeURIComponent(getPath);
         buketURL = (_a = urlArr.find(u => u.includes('appspot.com'))) !== null && _a !== void 0 ? _a : '';
     }
-    const bucket = init_1.storage.bucket(buketURL !== null && buketURL !== void 0 ? buketURL : (0, init_1.funGebucket)());
+    const bucket = storage.bucket(buketURL);
     const resExists = await bucket.file(path).exists();
     const isExist = resExists && resExists[0];
     if (!isExist)

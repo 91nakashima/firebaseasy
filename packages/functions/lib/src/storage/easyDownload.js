@@ -4,6 +4,7 @@ exports.easyDownload = void 0;
 const node_fetch_1 = require("node-fetch");
 // import request from 'request'
 // import fs from 'fs'
+// TODO
 const easyDownload = async (path) => {
     const res = await (0, node_fetch_1.default)(path);
     const blob = await res.blob();

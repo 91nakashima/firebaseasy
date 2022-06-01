@@ -1,20 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easyDelDoc = void 0;
-const init_1 = require("../init");
 const firestore_1 = require("firebase-admin/firestore");
 /**
  * delete Doc
  * @params 'cities/LA'
  */
-async function easyDelDoc(data) {
+async function easyDelDoc(firestore, data) {
     const collectionArray = data.split('/').filter(d => d);
     if (!collectionArray.length)
         throw new Error();
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
-            reference = init_1.firestore.collection(collectionArray[i]);
+            reference = firestore.collection(collectionArray[i]);
         }
         else if (i % 2 === 1 && reference instanceof firestore_1.CollectionReference) {
             reference = reference.doc(collectionArray[i]);

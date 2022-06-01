@@ -1,6 +1,6 @@
 {
   "name": "@firebaseasy/functions",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "type": "commonjs",
   "main": "./lib/src/index.js",
   "types": "./src/index.ts",
@@ -25,10 +25,7 @@
     "url": "https://github.com/91nakashima/firebaseasy/tree/main/packages/functions"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy/tree/main/packages/functions",
-  "keywords": [
-    "firebase",
-    "cloud functions"
-  ],
+  "keywords": ["firebase", "cloud functions"],
   "author": "91nakashima",
   "publishConfig": {
     "access": "public"

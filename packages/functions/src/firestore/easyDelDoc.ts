@@ -1,4 +1,4 @@
-import { firestore } from '../init'
+import { Firestore } from 'firebase-admin/firestore'
 import {
   CollectionReference,
   DocumentReference
@@ -8,7 +8,10 @@ import {
  * delete Doc
  * @params 'cities/LA'
  */
-export async function easyDelDoc (data: string): Promise<string> {
+export async function easyDelDoc (
+  firestore: Firestore,
+  data: string
+): Promise<string> {
   const collectionArray = data.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
 

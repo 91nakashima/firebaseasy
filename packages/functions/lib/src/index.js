@@ -14,9 +14,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initializeEasyApp = void 0;
-var setup_1 = require("./setup");
-Object.defineProperty(exports, "initializeEasyApp", { enumerable: true, get: function () { return setup_1.initializeEasyApp; } });
 __exportStar(require("./firestore"), exports);
 __exportStar(require("./storage"), exports);
 //# sourceMappingURL=index.js.map
