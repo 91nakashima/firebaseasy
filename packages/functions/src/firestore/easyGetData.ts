@@ -1,9 +1,6 @@
-import { firestore } from '../init'
-import {
-  CollectionReference,
-  DocumentReference,
-  Query
-} from 'firebase-admin/firestore'
+import { Firestore } from 'firebase-admin/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
+import { CollectionReference, Query } from 'firebase-admin/firestore'
 
 import { QueryOption, WhereOption } from '../../types/easyGetData'
 
@@ -20,8 +17,10 @@ const isUseType = (r: any): r is CollectionReference | Query => {
 
 /**
  * get Doc or Collection Data
+ * @returns Array | Object | undefind
  */
 export async function easyGetData<T> (
+  firestore: Firestore,
   data: string,
   option: QueryOption = {}
 ): Promise<GetDataType<T>> {
@@ -106,10 +105,11 @@ export async function easyGetData<T> (
 
 /**
  * get Doc Data
+ * @returns Object | undefind
  */
 export async function easyGetDoc<T> (
-  data: string,
-  option: QueryOption = {}
+  firestore: Firestore,
+  data: string
 ): Promise<T | undefined> {
   const collectionArray = data.split('/').filter(d => d)
   if (!collectionArray.length) throw new Error()
@@ -145,8 +145,10 @@ export async function easyGetDoc<T> (
 
 /**
  * get Collection Data
+ * @returns Array
  */
 export async function easyGetDocs<T> (
+  firestore: Firestore,
   data: string,
   option: QueryOption = {}
 ): Promise<T[]> {

@@ -1,10 +1,13 @@
-import { storage, funGebucket } from '../init'
+import { Storage } from 'firebase-admin/storage'
 
 /**
  * Delete File from URL or Bath
+ * @returns Promise<'success'>
  */
-
-export const easyDelObject = async (path: string): Promise<'success'> => {
+export const easyDelObject = async (
+  storage: Storage,
+  path: string
+): Promise<'success'> => {
   /** urlの場合にbucketを取得 */
   let buketURL = ''
 
@@ -15,7 +18,7 @@ export const easyDelObject = async (path: string): Promise<'success'> => {
     buketURL = urlArr.find(u => u.includes('appspot.com')) ?? ''
   }
 
-  const bucket = storage.bucket(buketURL ?? funGebucket())
+  const bucket = storage.bucket(buketURL)
 
   const resExists = await bucket.file(path).exists()
   const isExist = resExists && resExists[0]

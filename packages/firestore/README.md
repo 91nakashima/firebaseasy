@@ -1,4 +1,4 @@
-# firebaseasy(You can use browser and server)
+# firebaseasy
 
 Nakashima Package Manager
 略して【npm】で入れます。

@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 
 // import fs from 'fs'
 
+// TODO
 export const easyDownload = async (path: string) => {
   const res = await fetch(path)
 

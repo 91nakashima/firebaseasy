@@ -20,6 +20,7 @@ export const easySetDoc = async <T>(
   data: T
 ): Promise<string> => {
   const collectionArray = path.split('/').filter(d => d)
+
   if (!collectionArray.length) throw new Error()
 
   let reference: CollectionReference | DocumentReference | null = null

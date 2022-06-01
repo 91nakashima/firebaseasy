@@ -1,4 +1,4 @@
-# easy-firebase-functions(server side)
+# @firebaseasy/functions(server side)
 
 Nakashima Package Manager
 略して【npm】で入れます。
@@ -11,18 +11,34 @@ npm i @firebaseasy/functions
 
 ```js
 // js
-const { easySetDoc } = require('easy-firebase-functions')
-const { easyGetData } = require('easy-firebase-functions')
-const { easyGetDoc, easyGetDocs } = require('easy-firebase-functions')
-const { easyDelDoc } = require('easy-firebase-functions')
+const { easySetDoc } = require('@firebaseasy/functions')
+const { easyGetData } = require('@firebaseasy/functions')
+const { easyGetDoc, easyGetDocs } = require('@firebaseasy/functions')
+const { easyDelDoc } = require('@firebaseasy/functions')
 
 // ts
-import { easySetDoc } from 'easy-firebase-functions'
-import { easyGetData, easyGetDoc, easyGetDocs } from 'easy-firebase-functions'
-import { easyDelDoc } from 'easy-firebase-functions'
+import { easySetDoc } from '@firebaseasy/functions'
+import { easyGetData, easyGetDoc, easyGetDocs } from '@firebaseasy/functions'
+import { easyDelDoc } from '@firebaseasy/functions'
 
 // Type
-import { EasySetDoc, QueryOption, WhereOption } from 'easy-firebase-functions'
+import { EasySetDoc, QueryOption, WhereOption } from '@firebaseasy/functions'
+```
+
+# 設定
+
+```js
+import { config } from 'firebase-functions'
+import { initializeApp } from 'firebase-admin/app'
+import { getFirestore } from 'firebase-admin/firestore'
+import { getAuth } from 'firebase-admin/auth'
+import { getStorage } from 'firebase-admin/storage'
+
+const app = initializeApp(config().firebase)
+
+export const firestore = getFirestore(app)
+export const auth = getAuth(app)
+export const storage = getStorage(app)
 ```
 
 # 機能
@@ -40,14 +56,16 @@ import { EasySetDoc, QueryOption, WhereOption } from 'easy-firebase-functions'
 登録と更新ができます。 doc に `id` を追加すると、ドキュメント ID の指定・id が一致したドキュメントの更新を行えます。
 
 ```js
+import { firestore } from './init'
+
 // create
-easySetDoc('anime', {
+easySetDoc(firestore, 'anime', {
   title: 'ナルト',
   character: ['ナルト', 'サスケ', 'サクラ']
 })
 
 // update or create(add)
-easySetDoc('anime/*****/animeDetail', {
+easySetDoc(firestore, 'anime/*****/animeDetail', {
   title: 'ナルト',
   character: ['ナルト', 'サスケ', 'サクラ'],
   id: '*****'
@@ -57,9 +75,11 @@ easySetDoc('anime/*****/animeDetail', {
 情報の取得ができます。
 
 ```js
+import { firestore } from './init'
+
 // get Collection data as an Array
 /** @return {array<T>} */
-easyGetData('anime', {
+easyGetData(firestore, 'anime', {
   where: [['title', '==', 'ナルト'], ['character', 'array-contains', 'サスケ']],
   orderBy: ['created_at']
   limit: 99,
@@ -67,14 +87,16 @@ easyGetData('anime', {
 
 // get document data as an Object
 /** @return {Objects | undefined} */
-easyGetData('anime/hugahuga')
+easyGetData(firestore ,'anime/hugahuga')
 ```
 
 情報の削除
 
 ```js
+import { firestore } from './init'
+
 // delete document
-easyDelete('anime/hogehoge')
+easyDelete(firestore, 'anime/hogehoge')
 ```
 
 # サンプルコード
@@ -82,19 +104,20 @@ easyDelete('anime/hogehoge')
 ```js
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { firestore } from './init'
 import { easySetDoc, easyGetData, easyDelDoc } from '@firebaseasy/functions'
 admin.initializeApp(functions.config().firebase)
 
 export const funSampleCode = functions
   .region('asia-northeast1')
   .https.onCall(async (request, response) => {
-    const getDocId = await easySetDoc('anime', {
+    const getDocId = await easySetDoc(firestore, 'anime', {
       title: 'ナルト',
       character: ['ナルト', 'サスケ', 'サクラ']
     }).catch((e: any) => console.log(e)) // -> Error
     console.log(getDocId) // ->skjdbvkjd6svosb3dv5sdvs
 
-    const huga = await easyGetData('anime', {
+    const huga = await easyGetData(firestore, 'anime', {
       where: [
         ['title', '==', 'ナルト'],
         ['character', 'array-contains', 'ナルト']
@@ -108,7 +131,7 @@ export const funSampleCode = functions
     // created_at: Timestamp { _seconds: 1646120963, _nanoseconds: 790000000 }
     // }]
 
-    await easyDelDoc('anime/uaIn0lyDOmKYlXyClhyb')
+    await easyDelDoc(firestore, 'anime/uaIn0lyDOmKYlXyClhyb')
       .then((d: string) => console.log(d)) // -> 'ok'
       .catch((e: any) => console.log(e)) // -> Error
   })
