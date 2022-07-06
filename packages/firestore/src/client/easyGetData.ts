@@ -1,10 +1,7 @@
 import { getDoc, getDocs } from 'firebase/firestore'
 
-import {
-  Firestore,
-  DocumentReference,
-  QueryDocumentSnapshot
-} from 'firebase/firestore'
+import { Firestore, DocumentReference } from 'firebase/firestore'
+import { QueryDocumentSnapshot } from 'firebase/firestore'
 import { QueryOption } from '../types/easyGetData'
 
 import { createRef } from './createReference'

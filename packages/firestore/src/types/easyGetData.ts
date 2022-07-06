@@ -1,22 +1,14 @@
+import { WhereFilterOp } from 'firebase/firestore'
+
 type WhereOption = [
   string,
-  (
-    | '<'
-    | '<='
-    | '=='
-    | '>'
-    | '>='
-    | 'array-contains'
-    | 'array-contains-any'
-    | 'in'
-    | 'not-in'
-  ),
+  WhereFilterOp,
   string | number | boolean | Array<string>
 ]
 
 interface QueryOption {
-  where?: Array<WhereOption>
-  orderBy?: Array<string>
+  where?: WhereOption[]
+  orderBy?: (string | [string, 'desc'])[]
   limit?: number
 }
 

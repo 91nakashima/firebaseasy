@@ -63,6 +63,6 @@ export const easySetDoc = async <T>(
   data = { ...data, ...{ id: createId } }
 
   if (!(reference instanceof CollectionReference)) throw new Error()
-  await reference.doc(createId).set(data)
+  await reference.doc(createId).set(data as Object)
   return createId
 }

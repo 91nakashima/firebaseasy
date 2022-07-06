@@ -40,6 +40,12 @@ const funlogin = () => {
     console.log(d)
   })
 }
+
+const hugahuga = (s: Event) => {
+  // console.log(s.target.files[0])
+  const el = s.target as HTMLInputElement
+  console.log(el.files)
+}
 </script>
 
 <template>
@@ -54,6 +60,9 @@ const funlogin = () => {
   <button type="button" @click="funlogin">ログイン</button>
   <div></div>
   <button type="button" @click="signOut(auth)">ログアウト</button>
+
+  <div></div>
+  <input type="file" accept="image/png, image/jpeg" @change="hugahuga" />
 
   <pre>{{ showUserArray }}</pre>
 </template>

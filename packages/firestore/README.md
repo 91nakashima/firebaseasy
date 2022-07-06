@@ -106,6 +106,11 @@ easyGetData(firestore, 'anime', {
   orderBy: ['created_at']
   limit: 99,
 })
+easyGetData(firestore, 'anime', {
+  where: [['title', '==', 'NARUTO'], ['character', 'array-contains', 'Sasuke']],
+  orderBy: [['created_at', 'desc']]
+  limit: 99,
+})
 
 // get document data as an Object
 /** @return {Objrct | undefined} */

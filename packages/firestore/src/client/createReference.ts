@@ -52,9 +52,15 @@ export const createRef = (
    * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
    */
   if (option?.orderBy) {
-    option.orderBy.map((w: string) => {
+    option.orderBy.map(w => {
       if (!isTypeCollectionOrQuery(reference) || !w) return w
-      reference = query(reference, orderBy(w))
+
+      if (typeof w === 'string') {
+        reference = query(reference, orderBy(w))
+      } else {
+        reference = query(reference, orderBy(w[0], w[1]))
+      }
+
       return w
     })
   }

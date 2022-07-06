@@ -1,16 +1,8 @@
+import { WhereFilterOp } from 'firebase-admin/firestore'
+
 type WhereOption = [
   string,
-  (
-    | '<'
-    | '<='
-    | '=='
-    | '>'
-    | '>='
-    | 'array-contains'
-    | 'array-contains-any'
-    | 'in'
-    | 'not-in'
-  ),
+  WhereFilterOp,
   string | number | boolean | Array<string>
 ]
 

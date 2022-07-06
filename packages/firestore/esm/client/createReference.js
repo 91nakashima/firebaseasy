@@ -43,7 +43,12 @@ export var createRef = function (db, path, option) {
         option.orderBy.map(function (w) {
             if (!isTypeCollectionOrQuery(reference) || !w)
                 return w;
-            reference = query(reference, orderBy(w));
+            if (typeof w === 'string') {
+                reference = query(reference, orderBy(w));
+            }
+            else {
+                reference = query(reference, orderBy(w[0], w[1]));
+            }
             return w;
         });
     }
