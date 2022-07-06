@@ -7,8 +7,8 @@ type WhereOption = [
 ]
 
 interface QueryOption {
-  where?: Array<WhereOption>
-  orderBy?: Array<string>
+  where?: WhereOption[]
+  orderBy?: (string | [string, 'desc'])[]
   limit?: number
 }
 

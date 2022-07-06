@@ -1,6 +1,6 @@
 {
   "name": "@firebaseasy/functions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "commonjs",
   "main": "./lib/src/index.js",
   "types": "./src/index.ts",
