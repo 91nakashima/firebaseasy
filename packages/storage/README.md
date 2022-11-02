@@ -33,6 +33,8 @@ export const storage = getStorage(app)
 
 # 機能
 
+## Upload
+
 ```js
 import { easyUpload, randomName } from '@firebaseasy/storage'
 import { storage } from './initfirebase'
@@ -63,6 +65,8 @@ const metadata = {
 const res = await easyUpload(storage, 'img/car.jpeg', [buffer, metadata])
 ```
 
+## Delete
+
 ```js
 import { easyDelObject } from '@firebaseasy/storage'
 import { storage } from './initfirebase'
@@ -77,6 +81,8 @@ easyDelObject(storage, 'image/jdnajt93nd.jpg').then(
   // success
 )
 ```
+
+## Download
 
 ```js
 import { easyDownload } from '@firebaseasy/storage'

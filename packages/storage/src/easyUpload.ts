@@ -35,7 +35,7 @@ export async function easyUpload (
     | Blob
     | Uint8Array
     | [Uint8Array | Blob | File, { contentType: string }],
-  fun?: (progress: number, status: TaskState) => string
+  fun?: (progress: number, status: TaskState) => void
 ): Promise<string> {
   const storageRef = ref(storage, path)
 

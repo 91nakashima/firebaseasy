@@ -32,9 +32,17 @@ export async function easyGetData<T> (
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
       reference = firestore.collection(collectionArray[i])
-    } else if (i % 2 === 1 && reference instanceof CollectionReference) {
+    } else if (
+      i % 2 === 1 &&
+      reference &&
+      reference instanceof CollectionReference
+    ) {
       reference = reference.doc(collectionArray[i])
-    } else if (i % 2 === 0 && reference instanceof DocumentReference) {
+    } else if (
+      i % 2 === 0 &&
+      reference &&
+      reference instanceof DocumentReference
+    ) {
       reference = reference.collection(collectionArray[i])
     }
   }
@@ -88,11 +96,15 @@ export async function easyGetData<T> (
    * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
    */
   if (option.limit) {
-    if (!isUseType(reference)) throw new Error()
+    if (!isUseType(reference)) {
+      throw new Error()
+    }
     reference = reference.limit(option.limit)
   }
 
-  if (!isUseType(reference)) throw new Error()
+  if (!isUseType(reference)) {
+    throw new Error()
+  }
   const res = await reference.get()
 
   /**
@@ -116,16 +128,26 @@ export async function easyGetDoc<T> (
   data: string
 ): Promise<T | undefined> {
   const collectionArray = data.split('/').filter(d => d)
-  if (!collectionArray.length) throw new Error()
+  if (!collectionArray.length) {
+    throw new Error()
+  }
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
       reference = firestore.collection(collectionArray[i])
-    } else if (i % 2 === 1 && reference instanceof CollectionReference) {
+    } else if (
+      i % 2 === 1 &&
+      reference &&
+      reference instanceof CollectionReference
+    ) {
       reference = reference.doc(collectionArray[i])
-    } else if (i % 2 === 0 && reference instanceof DocumentReference) {
+    } else if (
+      i % 2 === 0 &&
+      reference &&
+      reference instanceof DocumentReference
+    ) {
       reference = reference.collection(collectionArray[i])
     }
   }
@@ -133,7 +155,9 @@ export async function easyGetDoc<T> (
   /**
    * DocumentReferenceの場合
    */
-  if (!(reference instanceof DocumentReference)) throw new Error()
+  if (!(reference instanceof DocumentReference)) {
+    throw new Error()
+  }
 
   return new Promise((resolve, rejects) => {
     if (!(reference instanceof DocumentReference)) return rejects()
@@ -157,16 +181,26 @@ export async function easyGetDocs<T> (
   option: QueryOption = {}
 ): Promise<T[]> {
   const collectionArray = data.split('/').filter(d => d)
-  if (!collectionArray.length) throw new Error()
+  if (!collectionArray.length) {
+    throw new Error()
+  }
 
   let reference: Query | CollectionReference | DocumentReference | null = null
 
   for (let i = 0; i < collectionArray.length; i++) {
     if (i === 0) {
       reference = firestore.collection(collectionArray[i])
-    } else if (i % 2 === 1 && reference instanceof CollectionReference) {
+    } else if (
+      i % 2 === 1 &&
+      reference &&
+      reference instanceof CollectionReference
+    ) {
       reference = reference.doc(collectionArray[i])
-    } else if (i % 2 === 0 && reference instanceof DocumentReference) {
+    } else if (
+      i % 2 === 0 &&
+      reference &&
+      reference instanceof DocumentReference
+    ) {
       reference = reference.collection(collectionArray[i])
     }
   }
@@ -174,7 +208,9 @@ export async function easyGetDocs<T> (
   /**
    * CollectionReference以外はエラー
    */
-  if (!(reference instanceof CollectionReference)) throw new Error()
+  if (!(reference instanceof CollectionReference)) {
+    throw new Error()
+  }
 
   /**
    * document
@@ -210,11 +246,15 @@ export async function easyGetDocs<T> (
    * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
    */
   if (option.limit) {
-    if (!isUseType(reference)) throw new Error()
+    if (!isUseType(reference)) {
+      throw new Error()
+    }
     reference = reference.limit(option.limit)
   }
 
-  if (!isUseType(reference)) throw new Error()
+  if (!isUseType(reference)) {
+    throw new Error()
+  }
   const res = await reference.get()
 
   /**

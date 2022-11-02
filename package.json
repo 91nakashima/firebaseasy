@@ -2,7 +2,6 @@
   "name": "firebaseasy",
   "version": "0.1.1",
   "description": "firebaseasy monorepo",
-  "main": "lib/index.js",
   "scripts": {
     "test:firestore": "npm run test -w @firebaseasy/firestore",
     "test:storage": "npm run test -w @firebaseasy/storage",
@@ -31,5 +30,5 @@
     "webpack-dev-server": "^4.7.4",
     "workspace": "^0.0.1-preview.1"
   },
-  "workspaces": ["packages/*", "packages/**/*", "sampleCloudFunctions"]
+  "workspaces": ["packages/*"]
 }

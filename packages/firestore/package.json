@@ -15,7 +15,7 @@
     "url": "https://github.com/91nakashima/firebaseasy/tree/main/packeges/firestore"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy",
-  "keywords": ["firebase"],
+  "keywords": ["firebase", "firestore"],
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {

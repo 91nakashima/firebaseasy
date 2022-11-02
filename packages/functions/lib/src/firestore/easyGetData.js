@@ -26,10 +26,14 @@ async function easyGetData(firestore, data, option = {}) {
         if (i === 0) {
             reference = firestore.collection(collectionArray[i]);
         }
-        else if (i % 2 === 1 && reference instanceof firestore_2.CollectionReference) {
+        else if (i % 2 === 1 &&
+            reference &&
+            reference instanceof firestore_2.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
         }
-        else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
+        else if (i % 2 === 0 &&
+            reference &&
+            reference instanceof firestore_1.DocumentReference) {
             reference = reference.collection(collectionArray[i]);
         }
     }
@@ -84,12 +88,14 @@ async function easyGetData(firestore, data, option = {}) {
      * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
      */
     if (option.limit) {
-        if (!isUseType(reference))
+        if (!isUseType(reference)) {
             throw new Error();
+        }
         reference = reference.limit(option.limit);
     }
-    if (!isUseType(reference))
+    if (!isUseType(reference)) {
         throw new Error();
+    }
     const res = await reference.get();
     /**
      * document data in Array
@@ -109,25 +115,31 @@ exports.easyGetData = easyGetData;
  */
 async function easyGetDoc(firestore, data) {
     const collectionArray = data.split('/').filter(d => d);
-    if (!collectionArray.length)
+    if (!collectionArray.length) {
         throw new Error();
+    }
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
             reference = firestore.collection(collectionArray[i]);
         }
-        else if (i % 2 === 1 && reference instanceof firestore_2.CollectionReference) {
+        else if (i % 2 === 1 &&
+            reference &&
+            reference instanceof firestore_2.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
         }
-        else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
+        else if (i % 2 === 0 &&
+            reference &&
+            reference instanceof firestore_1.DocumentReference) {
             reference = reference.collection(collectionArray[i]);
         }
     }
     /**
      * DocumentReferenceの場合
      */
-    if (!(reference instanceof firestore_1.DocumentReference))
+    if (!(reference instanceof firestore_1.DocumentReference)) {
         throw new Error();
+    }
     return new Promise((resolve, rejects) => {
         if (!(reference instanceof firestore_1.DocumentReference))
             return rejects();
@@ -148,25 +160,31 @@ exports.easyGetDoc = easyGetDoc;
  */
 async function easyGetDocs(firestore, data, option = {}) {
     const collectionArray = data.split('/').filter(d => d);
-    if (!collectionArray.length)
+    if (!collectionArray.length) {
         throw new Error();
+    }
     let reference = null;
     for (let i = 0; i < collectionArray.length; i++) {
         if (i === 0) {
             reference = firestore.collection(collectionArray[i]);
         }
-        else if (i % 2 === 1 && reference instanceof firestore_2.CollectionReference) {
+        else if (i % 2 === 1 &&
+            reference &&
+            reference instanceof firestore_2.CollectionReference) {
             reference = reference.doc(collectionArray[i]);
         }
-        else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
+        else if (i % 2 === 0 &&
+            reference &&
+            reference instanceof firestore_1.DocumentReference) {
             reference = reference.collection(collectionArray[i]);
         }
     }
     /**
      * CollectionReference以外はエラー
      */
-    if (!(reference instanceof firestore_2.CollectionReference))
+    if (!(reference instanceof firestore_2.CollectionReference)) {
         throw new Error();
+    }
     /**
      * document
      * https://firebase.google.com/docs/firestore/query-data/queries?hl=ja#simple_queries
@@ -201,12 +219,14 @@ async function easyGetDocs(firestore, data, option = {}) {
      * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
      */
     if (option.limit) {
-        if (!isUseType(reference))
+        if (!isUseType(reference)) {
             throw new Error();
+        }
         reference = reference.limit(option.limit);
     }
-    if (!isUseType(reference))
+    if (!isUseType(reference)) {
         throw new Error();
+    }
     const res = await reference.get();
     /**
      * document data in Array

@@ -1,3 +1,1 @@
-export * from '@firebaseasy/firestore'
-export * from '@firebaseasy/storage'
-export * from '@firebaseasy/app'
+export * from '../packages/firestore/esm/client/index'
