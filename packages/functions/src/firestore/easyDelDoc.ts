@@ -1,8 +1,6 @@
 import { Firestore } from 'firebase-admin/firestore'
-import {
-  CollectionReference,
-  DocumentReference
-} from 'firebase-admin/firestore'
+// import { DocumentReference } from 'firebase-admin/firestore'
+// import { CollectionReference } from 'firebase-admin/firestore'
 
 /**
  * delete Doc
@@ -10,28 +8,13 @@ import {
  */
 export async function easyDelDoc (
   firestore: Firestore,
-  data: string
+  path: string
 ): Promise<string> {
-  const collectionArray = data.split('/').filter(d => d)
-  if (!collectionArray.length) throw new Error()
-
-  let reference: CollectionReference | DocumentReference | null = null
-  for (let i = 0; i < collectionArray.length; i++) {
-    if (i === 0) {
-      reference = firestore.collection(collectionArray[i])
-    } else if (i % 2 === 1 && reference instanceof CollectionReference) {
-      reference = reference.doc(collectionArray[i])
-    } else if (i % 2 === 0 && reference instanceof DocumentReference) {
-      reference = reference.collection(collectionArray[i])
-    }
-  }
-
-  return new Promise((resolve, reject): void => {
-    if (!reference) return reject()
-    if (!(reference instanceof DocumentReference)) return reject()
-    reference
+  return new Promise((resolve, reject) => {
+    firestore
+      .doc(path)
       .delete()
-      .then(() => resolve('ok'))
-      .catch(() => reject())
+      .then(() => resolve(path))
+      .catch(e => reject(e))
   })
 }

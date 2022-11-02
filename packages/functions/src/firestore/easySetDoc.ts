@@ -58,11 +58,13 @@ export const easySetDoc = async <T>(
   }
 
   // idがない場合(create)
-  const createId = randamString()
+  if (!isHaveId(data)) {
+    const createId = randamString()
+    data = { ...data, ...{ id: createId } }
+  }
 
-  data = { ...data, ...{ id: createId } }
+  if (!isHaveId(data)) throw new Error()
 
-  if (!(reference instanceof CollectionReference)) throw new Error()
-  await reference.doc(createId).set(data as Object)
-  return createId
+  await (reference as CollectionReference).doc(data.id).set(data as Object)
+  return data.id
 }

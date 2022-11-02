@@ -52,12 +52,14 @@ const easySetDoc = async (firestore, path, data) => {
         }
     }
     // idがない場合(create)
-    const createId = (0, common_1.randamString)();
-    data = Object.assign(Object.assign({}, data), { id: createId });
-    if (!(reference instanceof firestore_2.CollectionReference))
+    if (!(0, exports.isHaveId)(data)) {
+        const createId = (0, common_1.randamString)();
+        data = Object.assign(Object.assign({}, data), { id: createId });
+    }
+    if (!(0, exports.isHaveId)(data))
         throw new Error();
-    await reference.doc(createId).set(data);
-    return createId;
+    await reference.doc(data.id).set(data);
+    return data.id;
 };
 exports.easySetDoc = easySetDoc;
 //# sourceMappingURL=easySetDoc.js.map

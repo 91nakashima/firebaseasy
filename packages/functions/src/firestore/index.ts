@@ -1,6 +1,7 @@
 // modules
 export { easySetDoc } from '../firestore/easySetDoc'
-export { easyGetData, easyGetDoc, easyGetDocs } from '../firestore/easyGetData'
+export { easyGetData } from '../firestore/easyGetData'
+// export { easyGetDoc, easyGetDocs } from '../firestore/easyGetData'
 export { easyDelDoc } from '../firestore/easyDelDoc'
 
 // type

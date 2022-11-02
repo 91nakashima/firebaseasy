@@ -1,42 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.easyGetDocs = exports.easyGetDoc = exports.easyGetData = void 0;
+exports.easyGetData = void 0;
 const firestore_1 = require("firebase-admin/firestore");
-const firestore_2 = require("firebase-admin/firestore");
-/**
- * check type
- */
-const isUseType = (r) => {
-    if (r instanceof firestore_2.CollectionReference)
-        return true;
-    if (r instanceof firestore_2.Query)
-        return true;
-    return false;
-};
 /**
  * get Doc or Collection Data
  * @returns Array | Object | undefind
  */
-async function easyGetData(firestore, data, option = {}) {
-    const collectionArray = data.split('/').filter(d => d);
+async function easyGetData(firestore, path, option) {
+    const collectionArray = path.split('/').filter(d => d);
     if (!collectionArray.length)
         throw new Error();
-    let reference = null;
-    for (let i = 0; i < collectionArray.length; i++) {
-        if (i === 0) {
-            reference = firestore.collection(collectionArray[i]);
-        }
-        else if (i % 2 === 1 &&
-            reference &&
-            reference instanceof firestore_2.CollectionReference) {
-            reference = reference.doc(collectionArray[i]);
-        }
-        else if (i % 2 === 0 &&
-            reference &&
-            reference instanceof firestore_1.DocumentReference) {
-            reference = reference.collection(collectionArray[i]);
-        }
-    }
+    let reference = collectionArray.length % 2 === 0
+        ? firestore.doc(path)
+        : firestore.collection(path);
     /**
      * DocumentReferenceの場合
      */
@@ -58,10 +34,8 @@ async function easyGetData(firestore, data, option = {}) {
      * document
      * https://firebase.google.com/docs/firestore/query-data/queries?hl=ja#simple_queries
      */
-    if (option.where) {
+    if (option === null || option === void 0 ? void 0 : option.where) {
         option.where.map((w) => {
-            if (!isUseType(reference))
-                return w;
             reference = reference.where(w[0], w[1], w[2]);
             return w;
         });
@@ -70,9 +44,9 @@ async function easyGetData(firestore, data, option = {}) {
      * document
      * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
      */
-    if (option.orderBy) {
+    if (option === null || option === void 0 ? void 0 : option.orderBy) {
         option.orderBy.map(w => {
-            if (!isUseType(reference) || !w)
+            if (!w)
                 return w;
             if (typeof w === 'string') {
                 reference = reference.orderBy(w);
@@ -87,14 +61,8 @@ async function easyGetData(firestore, data, option = {}) {
      * document
      * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
      */
-    if (option.limit) {
-        if (!isUseType(reference)) {
-            throw new Error();
-        }
+    if (option === null || option === void 0 ? void 0 : option.limit) {
         reference = reference.limit(option.limit);
-    }
-    if (!isUseType(reference)) {
-        throw new Error();
     }
     const res = await reference.get();
     /**
@@ -109,135 +77,4 @@ async function easyGetData(firestore, data, option = {}) {
     return arr;
 }
 exports.easyGetData = easyGetData;
-/**
- * get Doc Data
- * @returns Object | undefind
- */
-async function easyGetDoc(firestore, data) {
-    const collectionArray = data.split('/').filter(d => d);
-    if (!collectionArray.length) {
-        throw new Error();
-    }
-    let reference = null;
-    for (let i = 0; i < collectionArray.length; i++) {
-        if (i === 0) {
-            reference = firestore.collection(collectionArray[i]);
-        }
-        else if (i % 2 === 1 &&
-            reference &&
-            reference instanceof firestore_2.CollectionReference) {
-            reference = reference.doc(collectionArray[i]);
-        }
-        else if (i % 2 === 0 &&
-            reference &&
-            reference instanceof firestore_1.DocumentReference) {
-            reference = reference.collection(collectionArray[i]);
-        }
-    }
-    /**
-     * DocumentReferenceの場合
-     */
-    if (!(reference instanceof firestore_1.DocumentReference)) {
-        throw new Error();
-    }
-    return new Promise((resolve, rejects) => {
-        if (!(reference instanceof firestore_1.DocumentReference))
-            return rejects();
-        reference
-            .get()
-            .then(doc => {
-            if (!doc.exists)
-                return resolve(undefined);
-            resolve(doc.data());
-        })
-            .catch(() => rejects());
-    });
-}
-exports.easyGetDoc = easyGetDoc;
-/**
- * get Collection Data
- * @returns Array
- */
-async function easyGetDocs(firestore, data, option = {}) {
-    const collectionArray = data.split('/').filter(d => d);
-    if (!collectionArray.length) {
-        throw new Error();
-    }
-    let reference = null;
-    for (let i = 0; i < collectionArray.length; i++) {
-        if (i === 0) {
-            reference = firestore.collection(collectionArray[i]);
-        }
-        else if (i % 2 === 1 &&
-            reference &&
-            reference instanceof firestore_2.CollectionReference) {
-            reference = reference.doc(collectionArray[i]);
-        }
-        else if (i % 2 === 0 &&
-            reference &&
-            reference instanceof firestore_1.DocumentReference) {
-            reference = reference.collection(collectionArray[i]);
-        }
-    }
-    /**
-     * CollectionReference以外はエラー
-     */
-    if (!(reference instanceof firestore_2.CollectionReference)) {
-        throw new Error();
-    }
-    /**
-     * document
-     * https://firebase.google.com/docs/firestore/query-data/queries?hl=ja#simple_queries
-     */
-    if (option.where) {
-        option.where.map((w) => {
-            if (!isUseType(reference))
-                return w;
-            reference = reference.where(w[0], w[1], w[2]);
-            return w;
-        });
-    }
-    /**
-     * document
-     * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
-     */
-    if (option.orderBy) {
-        option.orderBy.map(w => {
-            if (!isUseType(reference) || !w)
-                return w;
-            if (typeof w === 'string') {
-                reference = reference.orderBy(w);
-            }
-            else {
-                reference = reference.orderBy(w[0], w[1]);
-            }
-            return w;
-        });
-    }
-    /**
-     * document
-     * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
-     */
-    if (option.limit) {
-        if (!isUseType(reference)) {
-            throw new Error();
-        }
-        reference = reference.limit(option.limit);
-    }
-    if (!isUseType(reference)) {
-        throw new Error();
-    }
-    const res = await reference.get();
-    /**
-     * document data in Array
-     */
-    const arr = [];
-    res.forEach(el => {
-        if (!el.exists)
-            return;
-        arr.push(el.data());
-    });
-    return arr;
-}
-exports.easyGetDocs = easyGetDocs;
 //# sourceMappingURL=easyGetData.js.map

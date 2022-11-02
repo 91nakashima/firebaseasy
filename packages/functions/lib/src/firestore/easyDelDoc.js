@@ -1,36 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.easyDelDoc = void 0;
-const firestore_1 = require("firebase-admin/firestore");
+// import { DocumentReference } from 'firebase-admin/firestore'
+// import { CollectionReference } from 'firebase-admin/firestore'
 /**
  * delete Doc
  * @params 'cities/LA'
  */
-async function easyDelDoc(firestore, data) {
-    const collectionArray = data.split('/').filter(d => d);
-    if (!collectionArray.length)
-        throw new Error();
-    let reference = null;
-    for (let i = 0; i < collectionArray.length; i++) {
-        if (i === 0) {
-            reference = firestore.collection(collectionArray[i]);
-        }
-        else if (i % 2 === 1 && reference instanceof firestore_1.CollectionReference) {
-            reference = reference.doc(collectionArray[i]);
-        }
-        else if (i % 2 === 0 && reference instanceof firestore_1.DocumentReference) {
-            reference = reference.collection(collectionArray[i]);
-        }
-    }
+async function easyDelDoc(firestore, path) {
     return new Promise((resolve, reject) => {
-        if (!reference)
-            return reject();
-        if (!(reference instanceof firestore_1.DocumentReference))
-            return reject();
-        reference
+        firestore
+            .doc(path)
             .delete()
-            .then(() => resolve('ok'))
-            .catch(() => reject());
+            .then(() => resolve(path))
+            .catch(e => reject(e));
     });
 }
 exports.easyDelDoc = easyDelDoc;

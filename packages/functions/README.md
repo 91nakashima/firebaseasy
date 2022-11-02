@@ -9,16 +9,9 @@ npm i @firebaseasy/functions
 
 # 使い方
 
-```js
-// js
-const { easySetDoc } = require('@firebaseasy/functions')
-const { easyGetData } = require('@firebaseasy/functions')
-const { easyGetDoc, easyGetDocs } = require('@firebaseasy/functions')
-const { easyDelDoc } = require('@firebaseasy/functions')
-
-// ts
+```ts
 import { easySetDoc } from '@firebaseasy/functions'
-import { easyGetData, easyGetDoc, easyGetDocs } from '@firebaseasy/functions'
+import { easyGetData } from '@firebaseasy/functions'
 import { easyDelDoc } from '@firebaseasy/functions'
 
 // Type
@@ -27,7 +20,7 @@ import { EasySetDoc, QueryOption, WhereOption } from '@firebaseasy/functions'
 
 # 設定
 
-```js
+```ts
 import { config } from 'firebase-functions'
 import { initializeApp } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
@@ -48,10 +41,10 @@ export const storage = getStorage(app)
 ```js
 {
   id: string // document id
-  created_at: Date
-  updated_at?: Date // If it was an update
 }
 ```
+
+## firestore の登録・更新
 
 登録と更新ができます。 doc に `id` を追加すると、ドキュメント ID の指定・id が一致したドキュメントの更新を行えます。
 
@@ -72,6 +65,8 @@ easySetDoc(firestore, 'anime/*****/animeDetail', {
 })
 ```
 
+## firestore の取得
+
 情報の取得ができます。
 
 ```js
@@ -90,7 +85,7 @@ easyGetData(firestore, 'anime', {
 easyGetData(firestore ,'anime/hugahuga')
 ```
 
-情報の削除
+## firestore の 削除
 
 ```js
 import { firestore } from './init'

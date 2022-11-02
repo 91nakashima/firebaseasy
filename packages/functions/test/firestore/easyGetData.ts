@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { easyGetData } from '../../src'
+import { easyGetData } from '../../lib/src'
 import { firestore } from '../index'
 
 type aaaa = {
