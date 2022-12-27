@@ -7,7 +7,7 @@ const firestore_1 = require("firebase-admin/firestore");
  * @returns Array | Object | undefind
  */
 async function easyGetData(firestore, path, option) {
-    const collectionArray = path.split('/').filter(d => d);
+    const collectionArray = path.split("/").filter((d) => d);
     if (!collectionArray.length)
         throw new Error();
     let reference = collectionArray.length % 2 === 0
@@ -16,13 +16,13 @@ async function easyGetData(firestore, path, option) {
     /**
      * DocumentReferenceの場合
      */
-    if (reference instanceof firestore_1.DocumentReference) {
+    if (collectionArray.length % 2 === 0) {
         return new Promise((resolve, rejects) => {
             if (!(reference instanceof firestore_1.DocumentReference))
                 return rejects();
             reference
                 .get()
-                .then(doc => {
+                .then((doc) => {
                 if (!doc.exists)
                     return resolve(undefined);
                 resolve(doc.data());
@@ -45,10 +45,10 @@ async function easyGetData(firestore, path, option) {
      * https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja#order_and_limit_data
      */
     if (option === null || option === void 0 ? void 0 : option.orderBy) {
-        option.orderBy.map(w => {
+        option.orderBy.map((w) => {
             if (!w)
                 return w;
-            if (typeof w === 'string') {
+            if (typeof w === "string") {
                 reference = reference.orderBy(w);
             }
             else {
@@ -69,7 +69,7 @@ async function easyGetData(firestore, path, option) {
      * document data in Array
      */
     const arr = [];
-    res.forEach(el => {
+    res.forEach((el) => {
         if (!el.exists)
             return;
         arr.push(el.data());

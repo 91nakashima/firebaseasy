@@ -15,11 +15,14 @@
     "url": "https://github.com/91nakashima/firebaseasy/tree/main/packeges/firestore"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy",
-  "keywords": ["firebase", "firestore"],
+  "keywords": [
+    "firebase",
+    "firestore"
+  ],
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^9.6.10",
+    "firebase": "^9.15.0",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.20.1",
     "vite": "^2.9.5",
