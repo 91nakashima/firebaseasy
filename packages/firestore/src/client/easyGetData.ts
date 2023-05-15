@@ -7,48 +7,6 @@ import { QueryOption } from "../types/easyGetData"
 import { createRef } from "./createReference"
 import { isTypeCollectionOrQuery } from "./helpers/checkType"
 
-type GetDataType<T> = T extends any[] ? T : T | undefined
-
-/**
- * get Doc or collection Data
- */
-export async function easyGetData<T>(
-  db: Firestore,
-  path: string,
-  option?: QueryOption
-): Promise<GetDataType<T>> {
-  const reference = createRef(db, path, option)
-
-  /**
-   * DocumentReferenceの場合
-   */
-  if (reference instanceof DocumentReference) {
-    return new Promise((resolve, rejects) => {
-      if (!(reference instanceof DocumentReference)) return rejects()
-
-      getDoc(reference)
-        .then((doc) => {
-          if (!doc.exists) return resolve(undefined as GetDataType<T>)
-          resolve(doc.data() as GetDataType<T>)
-        })
-        .catch(() => rejects())
-    })
-  }
-
-  const res = await getDocs(reference)
-
-  /**
-   * document data in Array
-   */
-  const arr: unknown[] = []
-  res.forEach((el) => {
-    if (!el.exists) return
-    arr.push(el.data())
-  })
-
-  return arr as GetDataType<T>
-}
-
 /**
  * get Doc Data
  */
@@ -65,7 +23,6 @@ export async function easyGetDoc<T>(
 
   return new Promise((resolve, rejects) => {
     if (!(reference instanceof DocumentReference)) return rejects()
-
     getDoc(reference)
       .then((doc) => {
         if (!doc.exists) return resolve(undefined)
@@ -91,7 +48,7 @@ export async function easyGetDocs<T>(
   /**
    * document data in Array
    */
-  const arr: Array<T> = []
+  const arr: T[] = []
   res.forEach((el: QueryDocumentSnapshot) => {
     if (!el.exists) return
     const obj = el.data() as unknown

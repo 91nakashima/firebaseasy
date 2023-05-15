@@ -1,5 +1,6 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './firebase'
+import { createApp } from "vue"
+import App from "./App.vue"
+import "./firebase"
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.mount("#app")

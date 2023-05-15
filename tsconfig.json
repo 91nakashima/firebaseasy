@@ -3,6 +3,5 @@
   "compilerOptions": {
     "outDir": "lib"
   },
-  "exclude": ["dist/**/*"],
-  "include": ["src/**/*"]
+  "exclude": ["dist/**/*"]
 }
