@@ -5,7 +5,7 @@ import { FirebaseStorage, TaskState } from 'firebase/storage'
 /**
  * create random name
  */
-export function randomName (len = 20, file?: File) {
+export function randomName(len = 20, file?: File) {
   let pass = ''
   const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const numbers = '0123456789'
@@ -27,7 +27,7 @@ export function randomName (len = 20, file?: File) {
 /**
  * upload file
  */
-export async function easyUpload (
+export async function easyUpload(
   storage: FirebaseStorage,
   path: string,
   data:
@@ -46,7 +46,7 @@ export async function easyUpload (
   return new Promise((resolve, reject) => {
     uploadTask.on(
       'state_changed',
-      snapshot => {
+      (snapshot) => {
         const progress: number =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 
@@ -54,11 +54,11 @@ export async function easyUpload (
           fun(progress, snapshot.state)
         }
       },
-      error => {
+      (error) => {
         reject(error)
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           resolve(downloadURL)
         })
       }
