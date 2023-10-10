@@ -21,7 +21,9 @@
     "url": "https://github.com/91nakashima/firebaseasy"
   },
   "homepage": "https://github.com/91nakashima/firebaseasy",
-  "keywords": ["firebase"],
+  "keywords": [
+    "firebase"
+  ],
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
@@ -30,5 +32,10 @@
     "webpack-dev-server": "^4.7.4",
     "workspace": "^0.0.1-preview.1"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "vitest": "^0.34.6"
+  }
 }

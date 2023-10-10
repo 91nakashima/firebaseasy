@@ -3,10 +3,19 @@ import HelloWorld from './components/HelloWorld.vue'
 import CountBtn from './components/CountBtn/CountBtn.vue'
 import SelfCountBtn from './components/SelfCountBtn/SelfCountBtn.vue'
 import { ref, computed, watch } from 'vue'
-import { dbTest } from './firebase'
-import { firestore, auth } from './firebase'
+import { dbTest, firestore, auth, storage } from './firebase'
+
 import { easySetDoc, easyDelDoc } from '@firebaseasy/firestore'
 import { signOut, signInWithEmailAndPassword } from 'firebase/auth'
+import { selectFile } from 'fileasy'
+import { easyUpload, randomName } from '@firebaseasy/storage'
+
+const uploadImage = async () => {
+  const file = await selectFile()
+  if (!file?.length) return
+  const url = await easyUpload(storage, randomName(20, file[0]), file[0])
+  console.log(url)
+}
 
 const showUserArray = computed(() => {
   // return Array.from(dbTest.data.values())
@@ -51,6 +60,9 @@ const hugahuga = (s: Event) => {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>
+    <button type="button" @click="uploadImage">画像をアップロード</button>
+  </div>
   <button type="button" @click="funhi">sbscribeクリック</button>
   <div></div>
   <button type="button" @click="funbey">unsbscribeクリック</button>

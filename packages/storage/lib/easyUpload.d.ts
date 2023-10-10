@@ -8,4 +8,4 @@ export declare function randomName(len?: number, file?: File): string;
  */
 export declare function easyUpload(storage: FirebaseStorage, path: string, data: File | Blob | Uint8Array | [Uint8Array | Blob | File, {
     contentType: string;
-}], fun?: (progress: number, status: TaskState) => string): Promise<string>;
+}], fun?: (progress: number, status: TaskState) => void): Promise<string>;
