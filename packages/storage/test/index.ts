@@ -5,4 +5,4 @@ import config from './config.json'
 
 export const app = initializeApp(config)
 // export const firestore = getFirestore()
-// export const storage = getStorage()
+export const storage = getStorage()
