@@ -82,7 +82,7 @@ easyDelObject(storage, 'image/jdnajt93nd.jpg').then(
 )
 ```
 
-## Download
+## Download to Device
 
 ```js
 import { easyDownload } from '@firebaseasy/storage'
@@ -97,4 +97,19 @@ easyDownload(url, undefined, progress => {
 })
 
 easyDownload(url)
+```
+
+## Download File
+
+```js
+import { easyGetFileFromUrl } from '@firebaseasy/storage'
+import { storage } from './initfirebase'
+
+const url = 'https://aaaaa.aaaa.aa/aaaaaaaaaa/aaaaaaaaa'
+
+const res = await easyGetFileFromUrl(url, storage)
+console.log(res) // File
+
+const res2 = await easyGetFileFromUrl(url)
+console.log(res2) // File
 ```

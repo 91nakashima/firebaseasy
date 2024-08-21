@@ -8,7 +8,11 @@ import { dbTest, firestore, auth, storage } from './firebase'
 import { easySetDoc, easyDelDoc } from '@firebaseasy/firestore'
 import { signOut, signInWithEmailAndPassword } from 'firebase/auth'
 import { selectFile } from 'fileasy'
-import { easyUpload, randomName } from '@firebaseasy/storage'
+import {
+  easyUpload,
+  randomName,
+  easyGetFileFromUrl as _easyGetFileFromUrl
+} from '@firebaseasy/storage'
 
 const uploadImage = async () => {
   const file = await selectFile()
@@ -50,6 +54,27 @@ const funlogin = () => {
   })
 }
 
+const easyGetFileFromUrl = async () => {
+  const file = await selectFile()
+  if (!file?.length) return
+  const url = await easyUpload(
+    storage,
+    `test/${randomName(20, file[0])}`,
+    file[0]
+  )
+  console.log(url)
+
+  const resfile = await _easyGetFileFromUrl(url, storage)
+  console.log(resfile)
+
+  const _url = await easyUpload(
+    storage,
+    `test/${randomName(20, resfile)}`,
+    resfile
+  )
+  console.log(_url)
+}
+
 const hugahuga = (s: Event) => {
   // console.log(s.target.files[0])
   const el = s.target as HTMLInputElement
@@ -63,6 +88,13 @@ const hugahuga = (s: Event) => {
   <div>
     <button type="button" @click="uploadImage">画像をアップロード</button>
   </div>
+
+  <div>
+    <button type="button" @click="easyGetFileFromUrl">
+      画像をアップロードとダウンロード
+    </button>
+  </div>
+
   <button type="button" @click="funhi">sbscribeクリック</button>
   <div></div>
   <button type="button" @click="funbey">unsbscribeクリック</button>
