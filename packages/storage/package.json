@@ -1,6 +1,6 @@
 {
   "name": "@firebaseasy/storage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "91nakashima",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^10.7.1",
+    "firebase": "^11.4.0",
     "tslib": "^2.6.2"
   },
   "keywords": [
